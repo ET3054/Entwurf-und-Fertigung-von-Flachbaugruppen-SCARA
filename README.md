@@ -1,0 +1,1 @@
+# Entwurf-und-Fertigung-von-Flachbaugruppen-SCARA
