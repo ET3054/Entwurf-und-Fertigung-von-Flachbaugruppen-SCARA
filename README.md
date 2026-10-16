@@ -18,7 +18,7 @@ Dieses GitHub-Repository befasst sich mit der Entwicklung und Fertigung eines PC
 |       └── XX/       				 # 
 |       └── XX/           		 # 
 ├── proj/
-│   └── Altimate Designer/     # PCB-Projekt
+│   └── Easy EDA/     # PCB-Projekt
 ├── docs/
 │   └── 3D-Design/             # 3D Dateien und technische Zeichnungen
 │   └── Datenblätter/          # Datenblätter der Komponenten
