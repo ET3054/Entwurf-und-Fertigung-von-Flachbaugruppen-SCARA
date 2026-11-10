@@ -1,0 +1,176 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+\begin{document}
+
+\usetikzlibrary{calc}
+
+% ---------- Farben ----------
+\definecolor{mkHead}{RGB}{0,51,102}
+\definecolor{mkParam}{RGB}{214,224,238}
+\definecolor{mkCell}{RGB}{242,245,249}
+\definecolor{mkText}{RGB}{30,30,30}
+\definecolor{mkA}{RGB}{0,113,178}
+\definecolor{mkB}{RGB}{213,92,0}
+\definecolor{mkC}{RGB}{0,158,115}
+
+% ---------- Raster ----------
+\newcommand{\mkN}{7}      % Anzahl der Spalten (ohne Parameterspalte)
+\newcommand{\mkM}{8}      % Anzahl der Parameterzeilen
+\newcommand{\mkP}{3.4}    % Breite der Parameterspalte in cm
+\newcommand{\mkH}{1.5}    % Zeilenhöhe in cm
+
+\newcommand{\mkSetup}{%
+  \pgfmathsetmacro{\mkW}{(\linewidth/1cm-\mkP)/\mkN}%
+  \pgfmathsetmacro{\mkTW}{\mkW-0.1}%
+  \pgfmathsetmacro{\mkPTW}{\mkP-0.2}%
+}
+
+% ---------- Zellstile ----------
+\tikzset{
+  mkbase/.style={
+    rectangle,
+    minimum height=\mkH cm,
+    inner sep=0.8pt,
+    draw=white,
+    line width=1.2pt,
+    font=\sffamily\tiny,
+    text=mkText
+  },
+  mkkopf/.style={mkbase, minimum width=\mkW cm, text width=\mkTW cm,
+    fill=mkHead, text=white, align=center, font=\sffamily\scriptsize\bfseries},
+  mkkopfp/.style={mkbase, minimum width=\mkP cm, text width=\mkPTW cm,
+    fill=mkHead, text=white, align=center, font=\sffamily\scriptsize\bfseries},
+  mkparam/.style={mkbase, minimum width=\mkP cm, text width=\mkPTW cm,
+    fill=mkParam, font=\sffamily\scriptsize\bfseries,
+    execute at begin node=\raggedright},
+  mkzelle/.style={mkbase, minimum width=\mkW cm, text width=\mkTW cm,
+    fill=mkCell, execute at begin node=\centering}
+}
+
+% ---------- Makros ----------
+\newcommand{\mkkopfp}[2]{%
+  \node[mkkopfp] (z#1x0) at (0,{-#1*\mkH}) {#2};}
+\newcommand{\mkparam}[2]{%
+  \node[mkparam] (z#1x0) at (0,{-#1*\mkH}) {#2};}
+\newcommand{\mkkopf}[3]{%
+  \pgfmathsetmacro{\mkXX}{\mkP/2+(#2-0.5)*\mkW}%
+  \node[mkkopf] (z#1x#2) at (\mkXX,{-#1*\mkH}) {#3};}
+\newcommand{\mkzelle}[3]{%
+  \pgfmathsetmacro{\mkXX}{\mkP/2+(#2-0.5)*\mkW}%
+  \node[mkzelle] (z#1x#2) at (\mkXX,{-#1*\mkH}) {#3};}
+
+% \mkLoesung{Farbe}{Linienstil}{rel. x-Versatz}{Spaltenliste}
+\newcommand{\mkLoesung}[4]{%
+  \pgfmathsetmacro{\mkDX}{#3*\mkW}%
+  \foreach \sp [count=\zl] in {#4}{%
+    \coordinate (mkpt\zl) at ($(z\zl x\sp.center)+(\mkDX,-0.38)$);
+    \fill[#1, opacity=0.5] (mkpt\zl) circle (2.0pt);
+    \ifnum\zl>1
+      \pgfmathtruncatemacro{\zp}{\zl-1}%
+      \draw[#1,#2,line width=1.1pt, opacity=0.5] (mkpt\zp) -- (mkpt\zl);
+    \fi
+  }%
+}
+
+% Legende: \mkLegende{Nr. (0,1,2,...)}{Farbe}{Linienstil}{Text}
+\newcommand{\mkLegende}[4]{%
+  \pgfmathsetmacro{\mkLX}{-\mkP/2 + #1*4.6}%
+  \pgfmathsetmacro{\mkLY}{-(\mkM+0.8)*\mkH}%
+  \draw[#2,#3,line width=1.1pt, opacity=0.5] (\mkLX,\mkLY) -- ++(0.8,0);
+  \fill[#2, opacity=0.5] (\mkLX+0.4,\mkLY) circle (2.0pt);
+  \node[anchor=west,font=\sffamily\small,text=mkText] at (\mkLX+1.0,\mkLY) {#4};}
+
+% ---------- Abbildung ----------
+\begin{figure}[H]
+  \captionsetup{font=small,labelfont=bf,labelsep=colon}
+  \centering
+  \begin{tikzpicture}
+    \mkSetup
+
+    % Kopfzeile
+    \mkkopfp{0}{Parameter}
+    \foreach \c in {1,...,\mkN}{%
+      \mkkopf{0}{\c}{Lösung~\c}%
+    }
+
+    % Parameterspalte
+    \mkparam{1}{Material des Gehäuses}
+    \mkparam{2}{Verbindung Gehäuse und Roboter}
+    \mkparam{3}{Wärmeabfuhr}
+    \mkparam{4}{Fertigung des Gehäuses}
+    \mkparam{5}{Energieversorgung/\allowbreak Wandlung}
+    \mkparam{6}{Befestigung der Platine im Gehäuse}
+    \mkparam{7}{Befestigung der Komponenten}
+    \mkparam{8}{Befestigung der Kabel}
+
+    % Material des Gehäuses
+    \mkzelle{1}{1}{PLA}
+    \mkzelle{1}{2}{PETG}
+    \mkzelle{1}{3}{ABS}
+    \mkzelle{1}{4}{Aluminium}
+    \mkzelle{1}{5}{Acryl}
+
+    % Verbindung Gehäuse und Roboter
+    \mkzelle{2}{1}{Steckverbindung / Klemmen}
+    \mkzelle{2}{2}{Magnetisch}
+    \mkzelle{2}{3}{Schraubverbindung}
+    \mkzelle{2}{4}{Kleben}
+    \mkzelle{2}{5}{Einteilig}
+
+    % Wärmeabfuhr
+    \mkzelle{3}{1}{Keine}
+    \mkzelle{3}{2}{Natürliche Belüftung (Lüftungsschlitze)}
+    \mkzelle{3}{3}{Kühlrippen}
+    \mkzelle{3}{4}{Lüfter}
+    \mkzelle{3}{5}{Wasserkühlung}
+    \mkzelle{3}{6}{Flüssiger Stickstoff (LN$_2$)}
+
+    % Fertigung des Gehäuses
+    \mkzelle{4}{1}{3D-Druck}
+    \mkzelle{4}{2}{CNC-Fräsen}
+    \mkzelle{4}{3}{Spritzguss}
+    \mkzelle{4}{4}{Manuelles Spanen}
+
+    % Energieversorgung/Wandlung
+    \mkzelle{5}{1}{Einzelne Netzteile für 24 V und 5 V}
+    \mkzelle{5}{2}{Buck-Converter (24 V $\rightarrow$ 5 V)}
+    \mkzelle{5}{3}{Boost-Converter (5 V $\rightarrow$ 24 V)}
+    \mkzelle{5}{4}{Trafo mit Gleichrichter (230 V-Anschluss)}
+    \mkzelle{5}{5}{Zener-Diode}
+    \mkzelle{5}{6}{Spannungsteiler für 5 V}
+    \mkzelle{5}{7}{Akku}
+
+    % Befestigung der Platine im Gehäuse
+    \mkzelle{6}{1}{Keine}
+    \mkzelle{6}{2}{Schrauben ins Material}
+    \mkzelle{6}{3}{Schrauben in Einschmelzgewinde}
+    \mkzelle{6}{4}{Kleben}
+    \mkzelle{6}{5}{Verguss (Epoxidharz)}
+
+    % Befestigung der Komponenten
+    \mkzelle{7}{1}{Steckverbindungen (Pins)}
+    \mkzelle{7}{2}{Löten (SMD / Through-Hole)}
+    \mkzelle{7}{3}{Schraubverbindung}
+    \mkzelle{7}{4}{Kleben}
+
+    % Befestigung der Kabel
+    \mkzelle{8}{1}{Steckverbindung}
+    \mkzelle{8}{2}{Anlöten}
+    \mkzelle{8}{3}{Schraubklemmen}
+    \mkzelle{8}{4}{Magnetpins}
+
+    % Lösungspfade
+    \mkLoesung{mkA}{solid}{-0.25}{1,3,2,1,2,3,1,1}
+    \mkLoesung{mkB}{dashed}{0}{2,3,2,1,1,3,2,1}
+    \mkLoesung{mkC}{densely dotted}{0.25}{4,3,2,2,2,2,2,2}
+
+    % Legende
+    \mkLegende{0}{mkA}{solid}{Lösung A}
+    \mkLegende{1}{mkB}{dashed}{Lösung B}
+    \mkLegende{2}{mkC}{densely dotted}{Lösung C}
+  \end{tikzpicture}
+  \caption{Morphologischer Kasten mit drei beispielhaften Lösungskombinationen}
+  \label{fig:morphkasten}
+\end{figure}
+
+\end{document}

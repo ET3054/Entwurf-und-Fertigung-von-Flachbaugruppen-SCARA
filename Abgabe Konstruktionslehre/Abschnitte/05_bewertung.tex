@@ -1,0 +1,79 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+\begin{document}
+
+% ---------- Farben ----------
+\definecolor{kopf}{RGB}{214,224,238}
+\definecolor{ideal}{RGB}{226,239,218}
+\definecolor{linie}{RGB}{120,120,120}
+
+% ---------- Formatierung und Summen ----------
+\newcommand{\fmt}[1]{\num{\fpeval{round(#1,3)}}}
+\def\sumPa{0}\def\sumPb{0}\def\sumPc{0}\def\sumPi{0}
+\def\sumGa{0}\def\sumGb{0}\def\sumGc{0}\def\sumGi{0}
+
+% \zeile{Anforderung}{Gewichtung}{P Lösung 1}{P Lösung 2}{P Lösung 3}
+\newcommand{\zeile}[5]{%
+  \xdef\sumPa{\fpeval{\sumPa+#3}}\xdef\sumPb{\fpeval{\sumPb+#4}}%
+  \xdef\sumPc{\fpeval{\sumPc+#5}}\xdef\sumPi{\fpeval{\sumPi+10}}%
+  \xdef\sumGa{\fpeval{\sumGa+#2*#3}}\xdef\sumGb{\fpeval{\sumGb+#2*#4}}%
+  \xdef\sumGc{\fpeval{\sumGc+#2*#5}}\xdef\sumGi{\fpeval{\sumGi+#2*10}}%
+  #1 & \fmt{#2}
+  & #3 & \fmt{#2*#3}
+  & #4 & \fmt{#2*#4}
+  & #5 & \fmt{#2*#5}
+  & \cellcolor{ideal}10 & \cellcolor{ideal}\fmt{#2*10} \\ \hline}
+
+% ---------- Gedrehte Tabelle auf Hochformat-Seite ----------
+
+
+\begin{center}
+\begin{turn}{90}
+\begin{minipage}{22cm}
+\centering
+\captionof{table}{Quantitative Nutzwertanalyse der drei ausgearbeiteten Gesamtlösungen im Vergleich zur Ideallösung}
+\label{tab:nwa}
+\vspace{6pt}
+{%
+\small\sffamily
+\setlength{\tabcolsep}{3pt}
+\arrayrulecolor{linie}
+\renewcommand{\arraystretch}{1.9}
+\begin{tabular}{|>{\centering\arraybackslash}p{3.4cm}|>{\centering\arraybackslash}p{2.2cm}|*{8}{>{\centering\arraybackslash}p{1.75cm}|}}
+\hline
+\rowcolor{white}
+\multicolumn{2}{|c|}{} &
+\multicolumn{2}{c|}{\cellcolor{kopf}\textbf{Gesamtlösung 1}} &
+\multicolumn{2}{c|}{\cellcolor{kopf}\textbf{Gesamtlösung 2}} &
+\multicolumn{2}{c|}{\cellcolor{kopf}\textbf{Gesamtlösung 3}} &
+\multicolumn{2}{c|}{\cellcolor{kopf}\textbf{Ideallösung}} \\ \hline
+\rowcolor{kopf}
+\textbf{Anforderung} & \makecell{\textbf{Relative}\\\textbf{Gewichtung $g_i$}} &
+\makecell{\textbf{Punkte}\\\textbf{1--10}} & \makecell{\textbf{Punkte}\\\textbf{gewichtet}} &
+\makecell{\textbf{Punkte}\\\textbf{1--10}} & \makecell{\textbf{Punkte}\\\textbf{gewichtet}} &
+\makecell{\textbf{Punkte}\\\textbf{1--10}} & \makecell{\textbf{Punkte}\\\textbf{gewichtet}} &
+\makecell{\textbf{Punkte}\\\textbf{1--10}} & \makecell{\textbf{Punkte}\\\textbf{gewichtet}} \\ \hline
+
+\zeile{Bauraum}                               {0.25}{8} {7}{9}
+\zeile{Herstellungskosten}                    {0.40}{10}{8}{9}
+\zeile{\makecell{Korrosions-\\beständigkeit}} {0.05}{10}{8}{6}
+\zeile{Fertigungstiefe}                       {0.25}{10}{8}{9}
+\zeile{Recyclingfähigkeit}                    {0.05}{3} {5}{7}
+
+\multicolumn{2}{|r|}{\textbf{Summe}\hspace{4pt}} &
+\textbf{\fmt{\sumPa}} & \textbf{\fmt{\sumGa}} &
+\textbf{\fmt{\sumPb}} & \textbf{\fmt{\sumGb}} &
+\textbf{\fmt{\sumPc}} & \textbf{\fmt{\sumGc}} &
+\textbf{\fmt{\sumPi}} & \textbf{\fmt{\sumGi}} \\ \hline
+\multicolumn{2}{|r|}{\textbf{Bezogene Werte}\hspace{4pt}} &
+\textbf{\fmt{\sumPa/\sumPi}} & \textbf{\fmt{\sumGa/\sumGi}} &
+\textbf{\fmt{\sumPb/\sumPi}} & \textbf{\fmt{\sumGb/\sumGi}} &
+\textbf{\fmt{\sumPc/\sumPi}} & \textbf{\fmt{\sumGc/\sumGi}} &
+\textbf{1} & \textbf{1} \\ \hline
+\end{tabular}
+}
+\end{minipage}
+\end{turn}
+\end{center}
+
+\end{document}

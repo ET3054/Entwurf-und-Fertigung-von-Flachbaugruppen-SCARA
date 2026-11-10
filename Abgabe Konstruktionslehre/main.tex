@@ -1,0 +1,113 @@
+\documentclass[a4paper,12pt]{article}
+\setlength{\headheight}{14.49998pt}
+% Pakete
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{threeparttable}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{placeins} 
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{xurl}
+\usepackage{float}
+%\usepackage{hvfloat}
+\usepackage{adjustbox}
+\usepackage{pdfpages}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{longtable}
+\usepackage{subfiles} % Best loaded last in the preamble
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{xfp}
+\usepackage{siunitx}
+\usepackage{xltabular}
+\usepackage{multirow}
+\usepackage{lscape}
+\sisetup{locale=DE}
+
+% Seitenlayout
+\geometry{a4paper, left=30mm, right=30mm, top=25mm, bottom=25mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\onehalfspacing
+
+% Kopf- und Fußzeilen
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Konstruktionslehre}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Schriftart
+\usepackage{newtxtext,newtxmath}
+
+
+% Titelgestaltung
+\titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{1em}{}
+
+% Dokument
+\begin{document}
+
+% Deckblatt
+\subfile{Abschnitte/00_deckblatt.tex}
+% Griechische Zahlen für das Inhaltsverzeichnis
+\pagenumbering{Roman}
+
+\newpage
+% Inhaltsverzeichnis
+
+\tableofcontents
+\vspace{1.5cm}
+
+\newpage
+
+% Hauptteil
+\pagenumbering{arabic}
+
+\section{Einleitung}
+\subfile{Abschnitte/01_einleitung.tex}
+
+\newpage
+
+\section{Anforderungen}
+\subfile{Abschnitte/02_anforderungen.tex}
+
+\newpage
+
+\section{Funktionsstruktur (Black Box)}
+\subfile{Abschnitte/03_anforderungsliste}
+
+\newpage
+
+\section{Morphologischer Kasten}
+\subfile{Abschnitte/04_morphologischer_kasten.tex}
+
+\newpage
+
+\section{Bewertung der Lösungsvariante}
+\subfile{Abschnitte/05_bewertung.tex}
+
+\newpage
+
+\section{Zeichnungssatz}
+\subfile{Abschnitte/06_zeichnungen.tex}
+
+
+\end{document}

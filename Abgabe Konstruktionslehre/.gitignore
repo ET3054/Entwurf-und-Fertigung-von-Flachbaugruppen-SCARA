@@ -1,0 +1,101 @@
+
+# ==========================================
+# 1. Standard LaTeX Hilfsdateien
+# ==========================================
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# ==========================================
+# 2. LuaLaTeX / XeLaTeX / latexmk & SyncTeX
+# ==========================================
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+*.luac
+lualatex-cache/
+
+# ==========================================
+# 3. Literaturverzeichnis (BibTeX / Biber / BibLaTeX)
+# ==========================================
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# ==========================================
+# 4. Verzeichnisse, Glossare & Index
+# ==========================================
+*.idx
+*.ilg
+*.ind
+*.ist
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+*.glsdefs
+*.lzo
+*.lzs
+
+# ==========================================
+# 5. Paketspezifische Dateien (TikZ, Listings, Minted, etc.)
+# ==========================================
+*.lol
+*.nav
+*.snm
+*.vrb
+*.thm
+*.tdo
+*.mw
+_minted*
+*.pyg
+svg-inkscape/
+
+# ==========================================
+# 6. Build-Ordner (falls du ein outDir nutzt)
+# ==========================================
+build/
+out/
+tmp/
+
+# ==========================================
+# 7. Kompilierte Dokumente (Optional!)
+# ==========================================
+# Hinweis: Wenn du deine fertige PDF NICHT in Git speichern willst, 
+# entferne das '#' vor '*.pdf'. 
+# Achtung: Falls du Grafiken als .pdf einbindest (z.B. in einem Ordner 'bilder/'),
+# wird durch '*.pdf' auch das Hochladen deiner PDF-Grafiken blockiert!
+# Nutze in diesem Fall lieber: /dein_hauptdokument.pdf
+
+# *.pdf
+
+# ==========================================
+# 8. Betriebssystem & VS Code (Windows & Mac)
+# ==========================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# VS Code (ignoriert lokale Ordner-Einstellungen, außer du willst sie teilen)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
