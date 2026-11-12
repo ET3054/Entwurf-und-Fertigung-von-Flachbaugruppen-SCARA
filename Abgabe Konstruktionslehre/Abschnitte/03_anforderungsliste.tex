@@ -3,4 +3,188 @@
 \begin{document}
 
 
-\end{document}
+
+\begin{figure}[htbp]
+    \centering
+    % \textwidth sorgt dafür, dass nichts mehr rechts abgeschnitten wird:
+    \resizebox{\textwidth}{!}{%
+        \begin{tikzpicture}[
+            font=\sffamily,
+            % Stil für Pfeile
+            arrowstyle/.style={-{Latex[length=2.5mm, width=1.5mm]}, thick},
+            % Stil für die obere Gesamtfunktion
+            gesamtbox/.style={
+                draw, thick,
+                minimum width=4.5cm,
+                minimum height=1.8cm,
+                align=center,
+                font=\sffamily\large
+            },
+            % Stil für die Hauptfunktions-Boxen
+            hfbox/.style={
+                draw, thick,
+                text width=2.4cm,
+                minimum height=2.2cm,
+                align=center,
+                font=\sffamily\footnotesize
+            },
+            % Stil für den Textblock der Nebenfunktionen
+            nfblock/.style={
+                text width=2.4cm,
+                align=left,
+                anchor=north,
+                font=\sffamily\scriptsize
+            }
+        ]
+
+            % ==========================================
+            % UNTERER TEIL: HAUPT- UND NEBENFUNKTIONEN
+            % ==========================================
+
+            % Hauptfunktion 1
+            \node[hfbox] (hf1) at (0,0) {
+                \textbf{Hauptfunktion 1}\\[1mm]
+                Energieversorg\-ung\\(24\,V)
+            };
+            
+            % Hauptfunktion 2
+            \node[hfbox, right=0.35cm of hf1] (hf2) {
+                \textbf{Hauptfunktion 2}\\[1mm]
+                Einlesen von seriellen\\Befehlen
+            };
+            
+            % Hauptfunktion 3
+            \node[hfbox, right=0.35cm of hf2] (hf3) {
+                \textbf{Hauptfunktion 3}\\[1mm]
+                kinematische\\Berechnungen\\ausführen
+            };
+            
+            % Hauptfunktion 4
+            \node[hfbox, right=0.35cm of hf3] (hf4) {
+                \textbf{Hauptfunktion 4}\\[1mm]
+                Ansteuerung \\Bewegung der\\Schritt- und\\Servomotoren
+            };
+            
+            % Hauptfunktion 5
+            \node[hfbox, right=0.35cm of hf4] (hf5) {
+                \textbf{Hauptfunktion 5}\\[1mm]
+                Referenzieren
+            };
+            
+            % Hauptfunktion 6
+            \node[hfbox, right=0.35cm of hf5] (hf6) {
+                \textbf{Hauptfunktion 6}\\[1mm]
+                Platine und\\Komponenten tragen\\und schützen
+            };
+
+            % --- Nebenfunktionen (als Blöcke unterhalb der HF) ---
+            
+            % NF 1
+            \node[nfblock, below=0.6cm of hf1] {
+                \textbf{Nebenfunktion 1.1:}\\
+                24\,V zu 5\,V\\
+                Spannungswandlung\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 1.2:}\\
+                24\,V und 5\,V\\
+                Spannungsversorgung\\
+                stützen\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 1.3:}\\
+                24\,V\\
+                Treiberversorgung\\
+                5\,V ESP/Servo-\\
+                Versorgung
+            };
+
+            % NF 2
+            \node[nfblock, below=0.6cm of hf2] {
+                \textbf{Nebenfunktion 2.1:}\\
+                Bluetooth-Serial\\
+                Befehle empfangen\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 2.2:}\\
+                Befehle parsen
+            };
+
+            % NF 3
+            \node[nfblock, below=0.6cm of hf3] {
+                \textbf{Nebenfunktion 3.1:}\\
+                Erreichbarkeit der\\
+                Koordinaten prüfen\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 3.2:}\\
+                inverse Kinematik\\
+                lösen, Winkel in\\
+                Motorschritte\\
+                umrechnen
+            };
+
+            % NF 4
+            \node[nfblock, below=0.6cm of hf4] {
+                \textbf{Nebenfunktion 4.1:}\\
+                Ausgabe von STEP/\\
+                DIR-Signalen für die\\
+                Schrittmotoren\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 4.2:}\\
+                Ausgabe PWM-Signal\\
+                Servo Motor\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 4.3:}\\
+                Konfiguration von\\
+                Geschwindigkeit und\\
+                Beschleunigung
+            };
+
+            % NF 5
+            \node[nfblock, below=0.6cm of hf5] {
+                \textbf{Nebenfunktion 5.1:}\\
+                Auswerten der\\
+                Motorströme bei\\
+                Anfahren einer\\
+                Endlage\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 5.2:}\\
+                Offset setzen und in\\
+                Nullposition fahren
+            };
+
+            % NF 6
+            \node[nfblock, below=0.6cm of hf6] {
+                \textbf{Nebenfunktion 6.1:}\\
+                Platine befestigen\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 6.2:}\\
+                Komponenten auf der\\
+                Platine befestigen\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 6.3:}\\
+                Wärme abführen\par\vspace{3.5mm}
+                \textbf{Nebenfunktion 6.4:}\\
+                Zugänglichkeit der\\
+                Kabelanschlüsse\\
+                gewährleisten
+            };
+
+
+            % ==========================================
+            % OBERER TEIL: GESAMTFUNKTION (Black-Box)
+            % ==========================================
+
+            % Zentrierte Gesamtbox mittig über den 6 Spalten
+            \coordinate (centerHF) at ($(hf1.west)!0.5!(hf6.east)$);
+            \node[gesamtbox] (gesamt) at ([yshift=3.5cm]centerHF) {Gesamtfunktion};
+
+            % Eingangspfeil
+            \draw[arrowstyle] ([xshift=-4.5cm]gesamt.west) -- (gesamt.west)
+                node[midway, above=2mm, align=center, font=\footnotesize] {
+                    \textbf{Eingang}\\
+                    Spannung, Steuersignale, Winkel,\\
+                    Koordinaten, Geschwindigkeit,\\
+                    Beschleunigung
+                };
+
+            % Ausgangspfeil
+            \draw[arrowstyle] (gesamt.east) -- ([xshift=4.5cm]gesamt.east)
+                node[midway, above=2mm, align=center, font=\footnotesize] {
+                    \textbf{Ausgang}\\
+                    Rotation der Motoren
+                };
+
+        \end{tikzpicture}
+    }
+    \caption{Funktionsstruktur des Antriebssystems}
+    \label{fig:funktionsstruktur}
+\end{figure}
