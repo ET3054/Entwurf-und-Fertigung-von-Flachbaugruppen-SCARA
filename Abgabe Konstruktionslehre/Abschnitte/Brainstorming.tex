@@ -1,0 +1,132 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+\begin{document}
+
+% ------------------------------------------------------------
+% Selbstständig: funktioniert auch ohne Zusatz im Preamble der main.tex
+% ------------------------------------------------------------
+\usetikzlibrary{shapes.multipart,shapes.geometric}   % für rectangle split / ellipse
+
+% Querformat-Seite nur definieren, falls main.tex sie nicht schon kennt
+\ifcsname querseite\endcsname\else
+  \newenvironment{querseite}{%
+    \clearpage
+    \newgeometry{margin=1cm,top=1.5cm,bottom=1.5cm}%
+    \begin{landscape}%
+    \thispagestyle{empty}%
+  }{%
+    \end{landscape}%
+    \clearpage
+    \restoregeometry
+  }
+\fi
+
+\begin{querseite}
+
+% Kapitelüberschrift steht IN der Querformat-Seite, damit sie mit der
+% Mindmap auf derselben Seite landet. In der main.tex darf dafür KEIN
+% eigenes \section{Mindmap} mehr vor dem \subfile stehen.
+\section{Mindmap}
+
+% TODO: Kurz erklären, wie die Ideen entstanden sind.
+
+\definecolor{bshaupt}{RGB}{40,90,188}
+\definecolor{bshell}{RGB}{232,241,250}
+
+\tikzset{
+  bszentrum/.style={ellipse, draw=bshaupt, fill=bshaupt, text=white, very thick,
+    minimum width=4.6cm, minimum height=2.6cm, text width=3.6cm,
+    align=center, font=\bfseries\large},
+  bsast/.style={rectangle split, rectangle split parts=2, draw=bshaupt, thick,
+    rounded corners=3pt, text width=7.2cm, inner sep=5pt,
+    rectangle split part fill={bshaupt,bshell}, align=left, font=\small},
+  bsverbindung/.style={draw=bshaupt, very thick}
+}
+
+\providecommand{\bszweig}[4]{% Name, Position, Titel, Unterpunkte
+  \node[bsast] (#1) at (#2) {%
+    \textcolor{white}{\bfseries #3}
+    \nodepart{second}
+    \begin{minipage}{7.0cm}
+      \begin{itemize}[leftmargin=1.1em,itemsep=1pt,topsep=1pt,parsep=0pt,label=\textcolor{bshaupt}{$\bullet$}]
+        #4
+      \end{itemize}
+    \end{minipage}};
+}
+
+\centering
+\ifcsname singlespacing\endcsname\singlespacing\fi  % Knoten nicht durch 1,5-fachen Zeilenabstand aufblähen
+\adjustbox{max width=\linewidth,max totalheight=0.72\textheight,center}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+
+\node[bszentrum] (Z) at (0,0) {Brainstorming\\Gehäusekonzept};
+
+% Linke Seite
+\bszweig{A}{-9.6,7.1}{1\; Befestigung der Platine im Gehäuse}{
+  \item Gar nicht
+  \item Schrauben ins Material
+  \item Einschmelzgewinde
+  \item Kleben
+  \item Verguss (Epoxidharz)}
+
+\bszweig{B}{-9.6,2.4}{2\; Befestigung der Komponenten}{
+  \item Steckverbindungen (Pins)
+  \item Löten (SMD / Through-Hole)
+  \item Schraubverbindung
+  \item Kleben}
+
+\bszweig{C}{-9.6,-2.4}{3\; Energieversorgung / Wandlung (24\,V / 5\,V)}{
+  \item Einzelne Netzteile für 24\,V und 5\,V
+  \item Buck-/Boost-Converter (24\,V $\rightarrow$ 5\,V)
+  \item Trafo mit Gleichrichter (230\,V-Anschluss)
+  \item Zener-Diode / Spannungsteiler für 5\,V
+  \item Akku oder Netzversorgung}
+
+\bszweig{D}{-9.6,-7.1}{4\; Befestigung der Motorkabel}{
+  \item Steckverbindung
+  \item Anlöten
+  \item Schraubklemmen
+  \item Magnetpins
+  \item Keine (fest verdrahtet)}
+
+% Rechte Seite
+\bszweig{E}{9.6,7.1}{5\; Wärmeabfuhr}{
+  \item Keine
+  \item Natürliche Belüftung (Lüftungsschlitze)
+  \item Kühlrippen
+  \item Lüfter
+  \item Wasserkühlung
+  \item Flüssiger Stickstoff (N$_2$)}
+
+\bszweig{F}{9.6,2.4}{6\; Fertigung des Gehäuses}{
+  \item 3D-Druck
+  \item CNC
+  \item Manuelles Spanen
+  \item Spritzgussverfahren}
+
+\bszweig{G}{9.6,-2.4}{7\; Verbindung Gehäuse und Roboter}{
+  \item Steckverbindung / Klemmen
+  \item Magnetisch
+  \item Schraubverbindung
+  \item Kleben
+  \item Einteilig}
+
+\bszweig{H}{9.6,-7.1}{8\; Material des Gehäuses}{
+  \item PLA
+  \item PETG
+  \item ABS
+  \item Aluminium
+  \item Unlegierter Baustahl (S235JR)
+  \item Acryl (durchsichtig)}
+
+\foreach \n in {A,B,C,D}{ \draw[bsverbindung] (Z) -- (\n.east); }
+\foreach \n in {E,F,G,H}{ \draw[bsverbindung] (Z) -- (\n.west); }
+\node[bszentrum] at (0,0) {Brainstorming\\Gehäusekonzept};
+
+\end{tikzpicture}}
+
+\captionof{figure}{Brainstorming: Ideensammlung zum Gehäusekonzept}
+\label{fig:brainstorming}
+\end{querseite}
+
+\end{document}
