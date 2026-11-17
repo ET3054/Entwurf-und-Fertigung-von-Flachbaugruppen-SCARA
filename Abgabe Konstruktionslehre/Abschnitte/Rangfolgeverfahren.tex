@@ -5,8 +5,8 @@
 \begingroup % alles bleibt lokal
 
 % ==================== EINSTELLUNGEN ====================
-\newcommand{\rfAnzahl}{5}              % Anzahl der Kriterien (mind. 3)
-\newcommand{\rfLabelbreite}{0.30\linewidth} % Breite der ersten Spalte
+\newcommand{\rfAnzahl}{9}                   % Anzahl der Kriterien (mind. 3)
+\newcommand{\rfLabelbreite}{0.24\linewidth} % Breite der ersten Spalte
 % =======================================================
 
 % Farben
@@ -20,12 +20,12 @@
 \newcommand{\rfR}[1]{\cellcolor{rfRot}#1}     % 0 = weniger wichtig
 \newcommand{\rfX}{\cellcolor{rfGrau}}         % Diagonale
 \newcommand{\rfP}[1]{\cellcolor{rfPfirsich}\textbf{#1}}
-\newcommand{\rfKopf}[1]{\rotatebox[origin=c]{90}{#1}}
+\newcommand{\rfKopf}[1]{\rotatebox[origin=c]{90}{\scriptsize\parbox{2.6cm}{\centering #1}}}
 
-% Spaltentypen: Z passt sich automatisch der Zeilenbreite an
-\renewcommand{\tabularxcolumn}[1]{m{#1}}      % vertikal zentriert
+% Spaltentypen
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
 \newcolumntype{Z}{>{\centering\arraybackslash}X}
-\newcolumntype{L}{>{\raggedleft\arraybackslash\small}m{\rfLabelbreite}}
+\newcolumntype{L}{>{\raggedleft\arraybackslash\scriptsize}m{\rfLabelbreite}}
 
 \renewcommand{\arraystretch}{1.6}
 
@@ -35,33 +35,51 @@
 
 \medskip
 \noindent
+\footnotesize
 \begin{tabularx}{\linewidth}{|L|*{\rfAnzahl}{Z|}Z|Z|Z|}
 \hline
-\raggedright\small
+\raggedright
 ist wichtiger als (=2)\newline
 ist gleich wichtig (=1)\newline
 ist weniger wichtig (=0)
 % --- Kriterien-Spaltenköpfe (neue Kriterien hier ergänzen) ---
 & \rfKopf{Bauraum}
-& \rfKopf{Vibrations-/Resonanzfestigkeit}
 & \rfKopf{Lebensdauer}
+& \rfKopf{DIY-Fertigungsverfahren}
+& \rfKopf{Montage ohne Spezialwerkzeug}
+& \rfKopf{Montage-/Demontagezeit}
+& \rfKopf{Gesamtgewicht}
+& \rfKopf{Herstellungskosten}
 & \rfKopf{Fertigungstiefe}
-& \rfKopf{Recyclierfähigkeit}
+& \rfKopf{Recyclingfähigkeit}
 % --- feste Ergebnisspalten ---
 & \cellcolor{rfPfirsich}\rfKopf{Summe}
 & \cellcolor{rfPfirsich}\rfKopf{Gewichtung}
 & \cellcolor{rfPfirsich}\rfKopf{Rang} \\
 \hline
-% --- Zeilen (neue Kriterien hier ergänzen) ---
-Bauraum                 & \rfX    & \rfR{0} & \rfG{2} & 1       & \rfG{2} & \rfP{5} & \rfP{0,25} & \rfP{2} \\ \hline
-Herstellungskosten      & \rfG{2} & \rfX    & \rfG{2} & \rfG{2} & \rfG{2} & \rfP{8} & \rfP{0,4}  & \rfP{1} \\ \hline
-Korrosionsbeständigkeit & \rfR{0} & \rfR{0} & \rfX    & \rfR{0} & 1       & \rfP{1} & \rfP{0,05} & \rfP{4} \\ \hline
-Fertigungstiefe         & 1       & \rfR{0} & \rfG{2} & \rfX    & \rfG{2} & \rfP{5} & \rfP{0,25} & \rfP{2} \\ \hline
-Recyclierfähigkeit      & \rfR{0} & \rfR{0} & 1       & \rfR{0} & \rfX    & \rfP{1} & \rfP{0,05} & \rfP{4} \\ \hline
+% --- Zeilen: Werte mit \rfG{2}, \rfR{0} oder 1 eintragen ---
+Bauraum
+ & \rfX & 1& \rfR{0} & 1& \rfG{2}& \rfG{2}& \rfR{0}& \rfG{2}& \rfG{2}& \rfP{10} & \rfP{0,14} & \rfP{4} \\ \hline
+Lebensdauer
+ & 1& \rfX & 1& \rfG{2}& \rfG{2}& \rfG{2}& \rfR{0}& \rfG{2}& 1& \rfP{11} & \rfP{0,15} & \rfP{3} \\ \hline
+DIY-Fertigungsverfahren
+ & \rfG{2} & 1& \rfX & \rfG{2}& 1& \rfG{2}& 1& \rfG{2}& \rfG{2}& \rfP{13} & \rfP{0,18} & \rfP{2} \\ \hline
+Montage ohne Spezialwerkzeug
+ & 1& \rfR{0}& \rfR{0}& \rfX & \rfG{2}& \rfG{2}& \rfR{0}& \rfG{2}& \rfG{2}& \rfP{9} & \rfP{0,13} & \rfP{5} \\ \hline
+Montage-/Demontagezeit
+ & \rfR{0}& \rfR{0}& 1& \rfR{0}& \rfX & 1& \rfR{0}& \rfG{2}& 1& \rfP{5} & \rfP{0,07} & \rfP{6} \\ \hline
+Gesamtgewicht
+ & \rfR{0}& \rfR{0}& \rfR{0}& \rfR{0}& 1& \rfX & \rfR{0}& \rfR{0}& \rfG{2}& \rfP{3} & \rfP{0,04} & \rfP{8} \\ \hline
+Herstellungskosten
+ & \rfG{2}& \rfG{2}& 1& \rfG{2}& \rfG{2}& \rfG{2}& \rfX & \rfG{2}& \rfG{2}& \rfP{15} & \rfP{0,20} & \rfP{1} \\ \hline
+Fertigungstiefe
+ & \rfR{0}& \rfR{0}& \rfR{0}& \rfR{0}& \rfR{0}& \rfG{2}& \rfR{0}& \rfX & \rfG{2}& \rfP{4} & \rfP{0,06} & \rfP{7} \\ \hline
+Recyclingfähigkeit
+ & \rfR{0}& 1& \rfR{0}& \rfR{0}& 1& \rfR{0}& \rfR{0}& \rfR{0}& \rfX & \rfP{2} & \rfP{0,03} & \rfP{9} \\ \hline
 % --- Summenzeile (passt sich an \rfAnzahl an) ---
 \multicolumn{\numexpr\rfAnzahl-2\relax}{c}{}
 & \multicolumn{3}{|c|}{Summe}
-& \multicolumn{1}{c|}{\rfP{20}}
+& \multicolumn{1}{c|}{\rfP{\number\numexpr\rfAnzahl*(\rfAnzahl-1)\relax}}
 & \multicolumn{2}{c}{} \\
 \cline{\rfVon-\rfBis}
 \end{tabularx}
