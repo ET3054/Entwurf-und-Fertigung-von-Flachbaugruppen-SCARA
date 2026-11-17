@@ -84,7 +84,7 @@ tmp/
 # wird durch '*.pdf' auch das Hochladen deiner PDF-Grafiken blockiert!
 # Nutze in diesem Fall lieber: /dein_hauptdokument.pdf
 
-# *.pdf
+ *.pdf
 
 # ==========================================
 # 8. Betriebssystem & VS Code (Windows & Mac)
