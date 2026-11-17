@@ -1,0 +1,78 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+\begin{document}
+
+\begingroup % alles bleibt lokal
+
+% ==================== EINSTELLUNGEN ====================
+\newcommand{\rfAnzahl}{5}              % Anzahl der Kriterien (mind. 3)
+\newcommand{\rfLabelbreite}{0.30\linewidth} % Breite der ersten Spalte
+% =======================================================
+
+% Farben
+\definecolor{rfGruen}{RGB}{214,240,214}
+\definecolor{rfRot}{RGB}{250,200,196}
+\definecolor{rfPfirsich}{RGB}{253,228,218}
+\definecolor{rfGrau}{RGB}{140,140,140}
+
+% Hilfsbefehle für Zellen
+\newcommand{\rfG}[1]{\cellcolor{rfGruen}#1}   % 2 = wichtiger
+\newcommand{\rfR}[1]{\cellcolor{rfRot}#1}     % 0 = weniger wichtig
+\newcommand{\rfX}{\cellcolor{rfGrau}}         % Diagonale
+\newcommand{\rfP}[1]{\cellcolor{rfPfirsich}\textbf{#1}}
+\newcommand{\rfKopf}[1]{\rotatebox[origin=c]{90}{#1}}
+
+% Spaltentypen: Z passt sich automatisch der Zeilenbreite an
+\renewcommand{\tabularxcolumn}[1]{m{#1}}      % vertikal zentriert
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedleft\arraybackslash\small}m{\rfLabelbreite}}
+
+\renewcommand{\arraystretch}{1.6}
+
+% Spaltennummern für die Linie unter der Summenzeile
+\edef\rfVon{\number\numexpr\rfAnzahl-1\relax}
+\edef\rfBis{\number\numexpr\rfAnzahl+2\relax}
+
+\noindent\textbf{3.} Nutzen Sie das Rangfolgeverfahren, um aus den Wunschanforderungen
+der Anforderungsliste ein Bewertungsprofil zu erstellen.
+
+\medskip
+\noindent\textbf{Ausführliche Lösung:}\\
+Matrix zum Rangfolgeverfahren.
+
+\medskip
+\noindent
+\begin{tabularx}{\linewidth}{|L|*{\rfAnzahl}{Z|}Z|Z|Z|}
+\hline
+\raggedright\small
+ist wichtiger als (=2)\newline
+ist gleich wichtig (=1)\newline
+ist weniger wichtig (=0)
+% --- Kriterien-Spaltenköpfe (neue Kriterien hier ergänzen) ---
+& \rfKopf{Bauraum}
+& \rfKopf{Herstellungskosten}
+& \rfKopf{Korrosionsbeständigkeit}
+& \rfKopf{Fertigungstiefe}
+& \rfKopf{Recyclierfähigkeit}
+% --- feste Ergebnisspalten ---
+& \cellcolor{rfPfirsich}\rfKopf{Summe}
+& \cellcolor{rfPfirsich}\rfKopf{Gewichtung}
+& \cellcolor{rfPfirsich}\rfKopf{Rang} \\
+\hline
+% --- Zeilen (neue Kriterien hier ergänzen) ---
+Bauraum                 & \rfX    & \rfR{0} & \rfG{2} & 1       & \rfG{2} & \rfP{5} & \rfP{0,25} & \rfP{2} \\ \hline
+Herstellungskosten      & \rfG{2} & \rfX    & \rfG{2} & \rfG{2} & \rfG{2} & \rfP{8} & \rfP{0,4}  & \rfP{1} \\ \hline
+Korrosionsbeständigkeit & \rfR{0} & \rfR{0} & \rfX    & \rfR{0} & 1       & \rfP{1} & \rfP{0,05} & \rfP{4} \\ \hline
+Fertigungstiefe         & 1       & \rfR{0} & \rfG{2} & \rfX    & \rfG{2} & \rfP{5} & \rfP{0,25} & \rfP{2} \\ \hline
+Recyclierfähigkeit      & \rfR{0} & \rfR{0} & 1       & \rfR{0} & \rfX    & \rfP{1} & \rfP{0,05} & \rfP{4} \\ \hline
+% --- Summenzeile (passt sich an \rfAnzahl an) ---
+\multicolumn{\numexpr\rfAnzahl-2\relax}{c}{}
+& \multicolumn{3}{|c|}{Summe}
+& \multicolumn{1}{c|}{\rfP{20}}
+& \multicolumn{2}{c}{} \\
+\cline{\rfVon-\rfBis}
+\end{tabularx}
+
+\endgroup
+
+\end{document}
