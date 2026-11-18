@@ -2,10 +2,17 @@
 \graphicspath{{\subfix{../images/}}}
 \begin{document}
 
-Gegenstand dieser Arbeit ist der Entwurf eines Gehäuses für die Steuerelektronik eines SCARA-Roboters (Selective Compliance Assembly Robot Arm). Die Steuerung basiert auf einem ESP32-Mikrocontroller, der serielle Befehle per Bluetooth empfängt, die inverse Kinematik berechnet und vier Schrittmotoren sowie einen Servomotor ansteuert. Die Versorgung erfolgt mit 24 V, wobei für den Mikrocontroller und den Servo eine 5-V-Spannungsebene erzeugt wird. Die Komponenten sind auf einer gemeinsamen Leiterplatte untergebracht, die in die Roboterbasis integriert werden soll.
+Gegenstand dieser Arbeit ist der Entwurf und die Anpassung eines Gehäuses für die Steuerelektronik eines SCARA-Roboters (Selective Compliance Assembly Robot Arm). In der Abbildung \ref{fig:scara} ist der Roboter dargestellt. Die Steuerung basiert auf einem ESP32-Mikrocontroller, der serielle Befehle per Bluetooth empfängt, die inverse Kinematik berechnet und vier Schrittmotoren sowie einen Servomotor ansteuert. Die Versorgung erfolgt mit 24 V, wobei für den Mikrocontroller und den Servo eine 5-V-Spannungsebene erzeugt wird. Die Komponenten sind auf einer gemeinsamen Leiterplatte untergebracht, die in die Roboterbasis integriert werden soll.
 
 Das Gehäuse hat die Aufgabe, die Leiterplatte mechanisch zu fixieren und vor Berührung und Kurzschluss zu schützen. Zudem muss es die Wärmeabfuhr der Treiberbausteine sowie die Zugänglichkeit und Zugentlastung der Anschlüsse sicherstellen und darf die Bluetooth-Funkverbindung nicht beeinträchtigen. Da sich das System im Versuchsbetrieb befindet, sind eine schnelle, werkzeugarme Montage und Demontage sowie eine Fertigung im FDM-Verfahren im Rahmen des Makerspace weitere Randbedingungen.
 
 Ziel der Arbeit ist es, auf Grundlage der Methoden der Konstruktionslehre eine geeignete Gehäuselösung zu entwickeln und nachvollziehbar zu bewerten. Dazu wird zunächst eine Anforderungsliste mit Fest-, Mindest- und Wunschforderungen erstellt (Kapitel \ref{Anforderungen}). Daraus wird die Funktionsstruktur abgeleitet (Kapitel \ref{Funktionsstruktur}), und die Wunschforderungen werden mit dem Rangfolgeverfahren gewichtet (Kapitel \ref{Rangfolgeverfahren}). Anschließend werden Lösungsideen gesammelt (Kapitel \ref{Brainstorming}) und im morphologischen Kasten zu Gesamtlösungen kombiniert (Kapitel \ref{Morphologischer Kasten}). Die Gesamtlösungen werden in einer Nutzwertanalyse bewertet (Kapitel \ref{Bewertung Lösungsvariante}). Die ausgewählte Lösung wird abschließend im Zeichnungssatz dokumentiert (Kapitel \ref{Zeichnungssatz}).
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{Bilder/SCARA.png}
+    \caption{SCARA-Roboter}
+    \label{fig:scara}
+\end{figure}
 
 \end{document}
