@@ -1,0 +1,85 @@
+<mxfile host="Electron">
+  <diagram name="Seite-1" id="t3BuYVfjQbkb1Z7FRWEz">
+    <mxGraphModel dx="1634" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HjJ3Jgd2pIh_i4w5IJP0-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=17;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
+          <mxGeometry height="200" width="710" x="220" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="HjJ3Jgd2pIh_i4w5IJP0-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1;fontColor=#003366;fontSize=15;" value="&lt;div&gt;ESPduino 32-D&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="115" x="510" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="HjJ3Jgd2pIh_i4w5IJP0-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" value="&lt;span&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Eingabe&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="35" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" value="&lt;span&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Inverse Kinematik&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="265" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" value="&lt;span&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Umrechnung&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="435" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" value="&lt;span&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Bewegungsprofil&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="605" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-28" edge="1" parent="1" source="2xpFb9shvTOaNRyQgk90-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2xpFb9shvTOaNRyQgk90-18" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-17" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Zielpunkt (x, y, z)&lt;div&gt;Gelenkwinke&lt;/div&gt;&lt;div&gt;Höhe&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="260" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-29" edge="1" parent="1" source="2xpFb9shvTOaNRyQgk90-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2xpFb9shvTOaNRyQgk90-19" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Winkel/mm in Motorschritte" vertex="1">
+          <mxGeometry height="60" width="120" x="430" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-31" edge="1" parent="1" source="2xpFb9shvTOaNRyQgk90-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2xpFb9shvTOaNRyQgk90-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Beschleunigungs-rampe" vertex="1">
+          <mxGeometry height="60" width="120" x="605" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-32" edge="1" parent="1" source="2xpFb9shvTOaNRyQgk90-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="2xpFb9shvTOaNRyQgk90-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="295" />
+              <mxPoint x="950" y="335" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="STEP/DIR-Signale" vertex="1">
+          <mxGeometry height="60" width="120" x="770" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="TMC2209 -&amp;gt; NEMA-Motor" vertex="1">
+          <mxGeometry height="60" width="190" x="980" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" value="&lt;span&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Ausgangssignale&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="770" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=20;" value="&lt;span&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Hardware&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="1015" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Servomotor (MG 90s)" vertex="1">
+          <mxGeometry height="60" width="190" x="980" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-27" edge="1" parent="1" source="2xpFb9shvTOaNRyQgk90-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="2xpFb9shvTOaNRyQgk90-17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Befehl per USB/Bluetooth" vertex="1">
+          <mxGeometry height="60" width="120" x="35" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="2xpFb9shvTOaNRyQgk90-33" edge="1" parent="1" source="2xpFb9shvTOaNRyQgk90-20" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="2xpFb9shvTOaNRyQgk90-22" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="295" />
+              <mxPoint x="950" y="260" />
+            </Array>
+            <mxPoint x="950" y="300" as="sourcePoint" />
+            <mxPoint x="1000" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
