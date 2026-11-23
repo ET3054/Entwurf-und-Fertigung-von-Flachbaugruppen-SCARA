@@ -16,7 +16,7 @@ Dieses Repository ist Teil des Modules **IE-M13-3054** der Studierenden **Dejan 
 Dieses GitHub-Repository befasst sich mit der Entwicklung und Fertigung eines PCBs für einen SCARA-Roboter, welcher im Rahmen des Moduls **IE-M26-6045** von den Studierenden **Jakob Cap** und **David Kowalczyk** entwickelt wurde. Der SCARA-Roboter DJ01 ist im Nachfolgenden Bild zu sehen.
 
 <p align="center">
-<img src="docs/3D-Design/SCARA%20-%20DJ01%20Baugruppe%20Als%20einzelne%20Komponenten%20v3.png" alt="SCARA-Roboter DJ01">
+<img src="docs/3D-Design/SCARA%20-%20DJ01%20Baugruppe%20Als%20einzelne%20Komponenten%20v3.png" alt="SCARA-Roboter DJ01" height="600" width="auto">
 </p>
 
 ## Repository-Struktur
@@ -44,7 +44,7 @@ Dieses GitHub-Repository befasst sich mit der Entwicklung und Fertigung eines PC
 Die Idee hinter dem Projekt ist es, ein PCB für den SCARA-Roboter DJ01 zu entwickeln, das die Aktuell verwendete Steuerungseinheit ersetzt. Aktuell erfolgt die Ansteuerung der NEMA 11 und NEMA 17 Schrittmotoren sowie des Servomotors über ein ESPDuino-Board. Dieses ESPDuino-Board ist mit einem CNC-Schihield V3 verbunden, auf welchem vier [`TMC2209`](docs/Datenblaetter/tmc2209_datasheet_rev1.09.pdf) Schrittmotortreiber eingesteckt sind. Zudem werden über das CNC-Shield der Servomotor des Greifers angesteuert sowie die vier Endlagenschalter ausgelesen. Eine schematische Darstellung des aktuellen Aufbaus ist in der nachfolgenden Abbildung zu shehen.
 
 <p align="center">
-<img src="docs/Bestandsschaltplan/SCARA_Symbolschaltplan_Steckplatine.png" alt="Schematischer Schaltplan des SCARA-Roboters DJ01">
+<img src="docs/Bestandsschaltplan/SCARA_Symbolschaltplan_Steckplatine.png" alt="Schematischer Schaltplan des SCARA-Roboters DJ01" height="600" width="auto">
 </p>
 
 Da das CNC-Schield keine Anschlüsse für die DIAG-Pins der TMC2209 Schrittmotortreiber bietet, ist es nicht möglich, die Fehlerzustände der Schrittmotortreiber auszulesen und ein Sensorloses Homing der Motoren zu implementieren. Zudem muss das CNC-Schield und der ESPDuino über zwei separate Spannungsquellen versorgt werden, was den Aufbau unnötig verkompliziert.
