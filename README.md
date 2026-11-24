@@ -2,7 +2,10 @@
  
 Dieses Repository ist Teil des Modules **IE-M13-3054** der Studierenden **Dejan Dimitrijević**, **Alexander Klose** und **Jakob Cap** an der [**Hochschule für Wirtschaft und Recht (HWR) Berlin**](https://www.hwr-berlin.de/).
 
+
+
 ## Inhaltsverzeichnis
+
 * [Grundlegende Informationen](#grundlegende-informationen)
 * [Repository-Struktur](#repository-struktur)
 * [Idee hinter dem Projekt](#idee-hinter-dem-projekt)
@@ -15,10 +18,7 @@ Dieses Repository ist Teil des Modules **IE-M13-3054** der Studierenden **Dejan 
     * [Änderungen des Schaltplans](#änderungen-des-schaltplans)
     * [Änderungen des PCB-Layouts](#änderungen-des-pcb-layouts)
     * [Bestückung und Fertigung](#bestückung-und-fertigung-1)
-
-
-
-
+* [Erkenntnisse und Learnings](#erkenntnisse-und-learnings)
 
  
 ## Grundlegende Informationen
@@ -179,27 +179,27 @@ Die Bestückung des PCBs mit den Komponenten erfolgte mittels einer **Heißluftl
 
 Mit der fertiggestellten Prototypen-Leiterplatte wurden mehrere Testversuche durchgeführt, um die korrekte Funktionsweise des PCBs zu validieren.
 
-**Testversuch 1 (Betrieb eines Schrittmotors): ✅**
+**Testversuch 1 (Betrieb eines Schrittmotors): ✅❌**
 
 Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Treibersteckplatz `T1` installiert und über den ESP32 angesprochen. Der Programmcode steuerte den Schrittmotor dabei so an, dass sich dieser mit einer konstanten Geschwindigkeit für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf dreht.
 
-Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
+Dieses Verhalten konnte nicht validiert werden auf Steckplatz `T1` konnte der Schrittmotor nicht angesprochen werden. Treiber auf allen anderen Steckplätzen (`T2` bis `T4`) konnten jedoch erfolgreich angesprochen werden, wodurch der Test als nur **teilweise bestanden** geschlossen werden konnte.
 
 **Testversuch 2 (Betrieb von zwei Schrittmotoren): ✅**
 
-Für diesen Testversuch wurden zwei TMC2209-Treiber auf den Steckplätzen `T1` und `T2` installiert und durch den ESP32 angesprochen. Der Programmcode steuerte dabei beide Motoren gleichzeitig an. Beide Motoren sollten sich mit einer konstanten Geschwindigkeit erneut für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen.
+Für diesen Testversuch wurden zwei TMC2209-Treiber auf den Steckplätzen `T2` und `T3` installiert und durch den ESP32 angesprochen. Der Programmcode steuerte dabei beide Motoren gleichzeitig an. Beide Motoren sollten sich mit einer konstanten Geschwindigkeit erneut für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen.
 
 Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test ebenfalls mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
 
 **Testversuch 3 (Ansteuerung der TMC2209-Treiber über UART): ❌**
 
-Für diesen Testversuch wurden zwei Treiber auf den Steckplätzen `T1` und `T2` installiert. Über die Header für das Setzen von `MS1` und `MS2` wurde die UART-Adresse des ersten Treibers auf 0 (`MS1` und `MS2` auf `GND`) und die Adresse des zweiten Treibers auf 1 (`MS1` auf `3,3 V` und `MS2` auf `GND`) festgelegt. Über den ESP32 wurden die Treiber so angesprochen, dass sich beide Motoren mit der gleichen Geschwindigkeit drehen. Motor 1 soll sich dabei 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen. Motor 2 soll sich wiederum 6 Sekunden im Rechtslauf und anschließend 6 Sekunden im Linkslauf drehen.
+Für diesen Testversuch wurden zwei Treiber auf den Steckplätzen `T2` und `T3` installiert. Über die Header für das Setzen von `MS1` und `MS2` wurde die UART-Adresse des ersten Treibers auf 0 (`MS1` und `MS2` auf `GND`) und die Adresse des zweiten Treibers auf 1 (`MS1` auf `3,3 V` und `MS2` auf `GND`) festgelegt. Über den ESP32 wurden die Treiber so angesprochen, dass sich beide Motoren mit der gleichen Geschwindigkeit drehen. Motor 1 soll sich dabei 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen. Motor 2 soll sich wiederum 6 Sekunden im Rechtslauf und anschließend 6 Sekunden im Linkslauf drehen.
 
 Dieses Verhalten konnte nicht validiert werden. Motor 2 drehte sich beim Test mit einer deutlich langsameren Geschwindigkeit, was darauf hindeutet, dass der Treiber keine UART-Kommunikation aufbauen konnte. Dadurch werden `MS1` und `MS2` zum Einstellen der Mikroschritte verwendet, was das langsamere Drehen des Motors erklären würde. Über das Auslesen des seriellen Monitors konnte ebenfalls keine funktionierende UART-Kommunikation validiert werden.
 
 **Testversuch 4 (Auslesen des DIAG-Signals): ❌**
 
-Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Steckplatz `T1` installiert und durch den ESP32 angesprochen. Dabei wurde versucht, das DIAG-Signal beim Blockieren der Motorwelle auszulesen. 
+Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Steckplatz `T2` installiert und durch den ESP32 angesprochen. Dabei wurde versucht, das DIAG-Signal beim Blockieren der Motorwelle auszulesen. 
 
 Hierfür wurde der Motor mit einer konstanten Geschwindigkeit gedreht und durch Festhalten der Motorwelle blockiert. Dabei konnte über den seriellen Monitor kein DIAG-Signal durch den Treiber validiert werden, wodurch dieser Test als **nicht bestanden** geschlossen werden konnte.
 
@@ -210,18 +210,65 @@ Für diesen Testversuch wurde der Servomotor mit dem PCB verbunden und über den
 
 **Hier noch weiter schreiben**
 
-Durch das Nichtbestehen der Versuche 3 und 4 konnte die korrekte Funktionsweise des Prototyps nicht validiert werden. Das Fehlverhalten gilt es im finalen PCB zu beheben.
+Durch das Nichtbestehen der Versuche 1, 3 und 4 konnte die korrekte Funktionsweise des Prototyps nicht validiert werden. Das Fehlverhalten gilt es im finalen PCB zu beheben.
 
 
 ## Finales PCB-Design
 
-Ziel des finalen PCB-Designs war es das Fehlverhalten des Prototyps zu beheben, sodass das PCB im SCARA-Roboter DJ01 verwendet werden kann.
+Ziel des finalen PCB-Designs war es, das Fehlverhalten des Prototyps zu beheben, sodass das PCB im SCARA-Roboter DJ01 wie gewünscht verwendet werden kann.
 
 ### Änderungen des Schaltplans
 
+Das Fehlverhalten des PCBs in Testversuch 1 deutet darauf hin, dass die `STEP_T1`- oder `DIR_T1`-Leitung nicht korrekt am Treiber angeschlossen ist oder auf falschen Kanälen des ESP32-Devkits liegt. Da die Treiber auf allen weiteren Steckplätzen angesprochen werden konnten, spricht dies gegen eine falsche Belegung der Treiberpins. Nach erneutem Betrachten des Pinouts des ESP32-Devkits fällt auf, dass die Leitungen `STEP_T1` und `DIR_T1` mit `GPIO39` und `GPIO34` des ESP32-Devkits verbunden sind. Hierbei handelt es sich nach weiterer Recherche um Input-only-Pins.
 
+<p align="center">
+<img src="images/ESP32-Pinout.png" alt="ESP32 Pinout" height="300" width="auto">
+</p>
+
+Da jedoch sowohl `STEP_T1` als auch `DIR_T1` Ausgangssignale des ESP32 sind, können diese demnach nicht an den Treiber auf dem ersten Steckplatz übertragen werden. Das Problem kann also dadurch behoben werden, dass die beiden Signalleitungen an zwei neue Pins angeschlossen werden, welche für Ausgangssignale geeignet sind. Auf dem finalen PCB liegt `STEP_T1` an `GPIO23` und `DIR_T1` an `GPIO22`. Diese Änderung wurde ebenfalls im Schaltplan des finalen PCBs übernommen. 
+
+<p align="center">
+<img src="images/Steckplatz-ESP32-finales-PCB.png" alt="Steckplatz des ESP32 auf dem finalen PCB" height="400" width="auto">
+</p>
+
+Das Fehlverhalten aus Testversuch 3 deutet darauf hin, dass keine erfolgreiche UART-Verbindung mit den einzelnen Treibern aufgebaut werden konnte. Nach erneuter Prüfung des Datenblattes der TMC2209-Treiber fällt auf, dass auf dem Prototyp-PCB die Verbindung der `TX0`- und `RX0`-Leitungen nicht korrekt durchgeführt wurde. Die korrekte Verschaltung der Treiber für die UART-Kommunikation ist in der nachfolgenden Abbildung dargestellt. 
+
+<p align="center">
+<img src="images/TMC2209-UART-Verbindung.png" alt="Verschaltung der TMC2209-Treiber für die UART-Kommunikation" height="300" width="auto">
+</p>
+
+Nach diesem Verbindungsschema muss nicht jeder Treiber einzeln über einen eigenen 1-kΩ-Widerstand mit der `RX0`- und `TX0`-Leitung verbunden werden. Es müssen lediglich einmal die `TX0`- und `RX0`-Leitung über einen 1-kΩ-Widerstand am Mikrocontroller miteinander verbunden werden. Die dadurch entstehende `UART`-Leitung muss dann an die UART-Pins der Treiber weitergeleitet werden. Die Verschaltung der `TX0`- und `RX0`-Leitungen am Mikrocontroller wurde ebenfalls im Schaltplan angepasst. Bei erneuter Überprüfung der UART-Pins der Treiber fällt zudem auf, dass das UART-Signal am `TX`-Pin der Treiber und nicht wie gefordert am `RX`-Pin angeschlossen ist. Um eine erfolgreiche UART-Kommunikation zu gewährleisten, wurde die neue `UART`-Leitung an den `RX`-Pin der Treiber angeschlossen. Die neue Pinbelegung der Treiber ist symbolisch anhand des Steckplatzes für `T1` in der nachfolgenden Abbildung dargestellt.
+
+<p align="center">
+<img src="images/Steckplatz-Treiber-T1-finales-PCB.png" alt="Steckplatz Treiber T1 finales PCB" height="400" width="auto">
+</p>
+
+Das Fehlverhalten aus Testversuch 4 deutet darauf hin, dass die `DIAG`-Pins nicht korrekt mit den Treibern oder dem ESP32 verbunden sind. Da es sich bei den `DIAG`-Signalen um reine Eingangssignale am ESP32 handelt und diese mit dafür geeigneten GPIOs verbunden sind, kann das Fehlverhalten nicht durch die Verbindung am ESP32-Devkit hervorgerufen werden. Demnach muss eine falsche Verbindung am Treiber für das Fehlverhalten verantwortlich sein. Jedoch ist auch die Verbindung an den Steckplätzen der Treiber korrekt. Demnach liegt der Fehler nicht im Schaltplan, sondern im PCB-Layout selbst.
 
 ### Änderungen des PCB-Layouts
 
+Bei näherem Betrachten des Layouts der Treibersteckplätze fällt auf, dass die Header `H2`, `H7`, `H12` und `H17` um **180°** falsch gedreht sind. So ist der Header-Pin, welcher eigentlich mit dem `DIAG`-Pin der Treiber verbunden sein sollte, mit dem `INDEX`-Pin der Treiber verbunden. Der eigentliche `DIAG`-Pin selbst wird jedoch nicht kontaktiert.
+
+<p align="center">
+<img src="images/Falsche-Kontaktierung-des-DIAG-Pins.png" alt="Falsche Kontaktierung des DIAG-Pins" height="400" width="auto">
+</p>
+
+Diese fehlende Kontaktierung des `DIAG`-Pins würde erklären, warum keine Signale durch den ESP32 empfangen werden und kein sensorloses Homing möglich ist. 
+
+Auf Grundlage der Anpassungen im Schaltplan sowie der falschen Ausrichtung der Header wurde das PCB-Layout nochmals überarbeitet. Analog zum Prototyp ist das PCB in die vier großen Bereiche aufgeteilt. Die Oberseite `Layer 1` führt erneut die Steuerleitungen und die Unterseite `Layer 2` die Spannungsleitungen. Verändert haben sich lediglich die kontaktierten Pins der Treiber (UART-Pins), die Rotation der Header, die Verschaltung der `RX0`- und `TX0`-Leitungen und die Anschlusspins für `STEP_T1` und `DIR_T1` am ESP32-Devkit. Der neue 1-kΩ-Widerstand für die UART-Leitung ist nun unter dem Steckplatz des ESP32-Devkits positioniert. Da die `TX0`- und `RX0`-Leitungen jedoch nicht mehr über das gesamte PCB laufen, mussten die entsprechenden Testpads ebenfalls neben dem Steckplatz des ESP32 positioniert werden. Da beim Layout des Prototyp-PCBs die Abstände zwischen den einzelnen Headern nicht exakt mit den Abständen der Pin-Reihen der Bauelemente übereingestimmt haben, wurden diese Abstände im finalen Layout ebenfalls überarbeitet. Das [finale PCB-Layout](proj/EASY%20EDA/Finales%20Design/ProPrj_Scara%20Robot%20PCB_2026-11-23.epro2) ist in den nachfolgenden Abbildungen zu erkennen.
+
+<p align="center">
+<img src="images/Finales PCB-Layer-1.png" alt="Layer 1 des finalen PCBs" height="600" width="auto">
+</p>
+
+<p align="center">
+<img src="images/Finales PCB-Layer-2.png" alt="Layer 2 des finalen PCBs" height="600" width="auto">
+</p>
+
+Die vollständigen Fertigungsdateien des finalen PCBs sind im Verzeichnis [proj/Export/Finales Design](proj/Export/Finales%20Design/) abgelegt. 
+
 ### Bestückung und Fertigung
 
+Das finale PCB wurde aus zeitlichen Gründen nicht bestellt und daher auch nicht bestückt. Dies soll jedoch in einem späteren Arbeitsschritt in Kombination mit der Durchführung der gleichen Testversuche wie beim Prototyp erfolgen.
+
+## Erkenntnisse und Learnings
