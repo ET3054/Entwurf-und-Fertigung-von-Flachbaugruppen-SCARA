@@ -103,16 +103,16 @@ Die vier TMC2209-Treiber selbst werden jeweils mittels dreier Steckverbinder auf
 
 In der detaillierteren Ansicht des Steckplatzes für den Treiber T1 ist zudem zu erkennen, dass die UART-Leitungen `TX0` und `RX0` des ESP32 nicht direkt an die Treiber angeschlossen werden. `TX0` wird über die 1-kΩ-Widerstände (`R1` bis `R4`) mit der `RX0`-Leitung verbunden. Diese gebündelte Leitung wird anschließend an die Treiber angeschlossen. Über die Header `H4`, `H5`, `H9`, `H10`, `H14`, `H15`, `H19` und `H20` können die UART-Adressen der einzelnen Treiber eingestellt werden. Über Verbindungsbrücken zwischen den einzelnen Pins können die `MS1`-Pins und `MS2`-Pins der Treiber entweder mit GND oder 3,3 V verbunden werden. Die so einstellbaren Adressen sind in der folgenden Tabelle dargestellt. 
  
-<p align="center">
-
+<div align="center">
+ 
 | MS2 | MS1 | UART-Adresse des Treibers |
 |:---:|:---:|:---:|
 | `GND` | `GND` | 0x00 |
 | `GND` | `3,3 V` | 0x01 |
 | `3,3 V` | `GND` | 0x02 |
 | `3,3 V` | `3,3 V` | 0x03 |
- 
-</p>
+
+</div>
 
 <p align="center">
 <img src="images/Steckplatz-Treiber1-Prototype.png" alt="Detaillierte Ansicht des Steckplatzes für den Treiber T1" height="400" width="auto">
@@ -156,14 +156,14 @@ Für die Überprüfung der Versorgungsspannungen (24 V und 5 V) sowie das Debugg
  
 Die Traces des PCBs haben eine standardmäßige Breite von 3 mm. Aufgrund der höheren Ströme auf den Traces des 24-V- und 5-V-Netzes sind diese Traces mit einer Breite von 4 mm dimensioniert. Für die beiden Netze ergeben sich dabei die folgenden Strombelastbarkeitswerte:
  
-<p align="center">
+<div align="center">
 
 | Net | Net-Länge | Trace-Breite | Widerstand | Strombelastbarkeit | 
 |:---:|:---:|:---:|:---:|:---:|
 | 24 V | 239 mm | 3 mm | 0,2936 Ω | **1,23 A** |
 | 5 V | 49 mm | 3 mm | 0,0602 Ω | **1,23 A** | 
 
-</p>
+</div>
 
 Da der Nennstrom der beiden Netze nie einen Wert von mehr als 1 A erreicht, sind diese somit ausreichend groß dimensioniert.
  
@@ -179,36 +179,34 @@ Die Bestückung des PCBs mit den Komponenten erfolgte mittels einer **Heißluftl
 
 Mit der fertiggestellten Prototypen-Leiterplatte wurden mehrere Testversuche durchgeführt, um die korrekte Funktionsweise des PCBs zu validieren.
 
-**Testversuch 1 (Betrieb eines Schrittmotors): ✅❌**
-
-Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Treibersteckplatz `T1` installiert und über den ESP32 angesprochen. Der Programmcode steuerte den Schrittmotor dabei so an, dass sich dieser mit einer konstanten Geschwindigkeit für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf dreht.
-
-Dieses Verhalten konnte nicht validiert werden auf Steckplatz `T1` konnte der Schrittmotor nicht angesprochen werden. Treiber auf allen anderen Steckplätzen (`T2` bis `T4`) konnten jedoch erfolgreich angesprochen werden, wodurch der Test als nur **teilweise bestanden** geschlossen werden konnte.
+ **Testversuch 1 (Betrieb eines Schrittmotors): ✅❌**
+>
+> Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Treibersteckplatz `T1` installiert und über den ESP32 angesprochen. Der Programmcode steuerte den Schrittmotor dabei so an, dass sich dieser mit einer konstanten Geschwindigkeit für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf dreht.
+>
+> Dieses Verhalten konnte nicht validiert werden auf Steckplatz `T1` konnte der Schrittmotor nicht angesprochen werden. Treiber auf allen anderen Steckplätzen (`T2` bis `T4`) konnten jedoch erfolgreich angesprochen werden, wodurch der Test als nur **teilweise bestanden** geschlossen werden konnte.
 
 **Testversuch 2 (Betrieb von zwei Schrittmotoren): ✅**
-
-Für diesen Testversuch wurden zwei TMC2209-Treiber auf den Steckplätzen `T2` und `T3` installiert und durch den ESP32 angesprochen. Der Programmcode steuerte dabei beide Motoren gleichzeitig an. Beide Motoren sollten sich mit einer konstanten Geschwindigkeit erneut für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen.
-
-Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test ebenfalls mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
+>
+>Für diesen Testversuch wurden zwei TMC2209-Treiber auf den Steckplätzen `T2` und `T3` installiert und durch den ESP32 angesprochen. Der Programmcode steuerte dabei beide Motoren gleichzeitig an. Beide Motoren sollten sich mit einer konstanten Geschwindigkeit erneut für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen.
+>
+>Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test ebenfalls mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
 
 **Testversuch 3 (Ansteuerung der TMC2209-Treiber über UART): ❌**
-
-Für diesen Testversuch wurden zwei Treiber auf den Steckplätzen `T2` und `T3` installiert. Über die Header für das Setzen von `MS1` und `MS2` wurde die UART-Adresse des ersten Treibers auf 0 (`MS1` und `MS2` auf `GND`) und die Adresse des zweiten Treibers auf 1 (`MS1` auf `3,3 V` und `MS2` auf `GND`) festgelegt. Über den ESP32 wurden die Treiber so angesprochen, dass sich beide Motoren mit der gleichen Geschwindigkeit drehen. Motor 1 soll sich dabei 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen. Motor 2 soll sich wiederum 6 Sekunden im Rechtslauf und anschließend 6 Sekunden im Linkslauf drehen.
-
-Dieses Verhalten konnte nicht validiert werden. Motor 2 drehte sich beim Test mit einer deutlich langsameren Geschwindigkeit, was darauf hindeutet, dass der Treiber keine UART-Kommunikation aufbauen konnte. Dadurch werden `MS1` und `MS2` zum Einstellen der Mikroschritte verwendet, was das langsamere Drehen des Motors erklären würde. Über das Auslesen des seriellen Monitors konnte ebenfalls keine funktionierende UART-Kommunikation validiert werden.
+>
+>Für diesen Testversuch wurden zwei Treiber auf den Steckplätzen `T2` und `T3` installiert. Über die Header für das Setzen von `MS1` und `MS2` wurde die UART-Adresse des ersten Treibers auf 0 (`MS1` und `MS2` auf `GND`) und die Adresse des zweiten Treibers auf 1 (`MS1` auf `3,3 V` und `MS2` auf `GND`) festgelegt. Über den ESP32 wurden die Treiber so angesprochen, dass sich beide Motoren mit der gleichen Geschwindigkeit drehen. Motor 1 soll sich dabei 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen. Motor 2 soll sich wiederum 6 Sekunden im Rechtslauf und anschließend 6 Sekunden im Linkslauf drehen.
+>
+>Dieses Verhalten konnte nicht validiert werden. Motor 2 drehte sich beim Test mit einer deutlich langsameren Geschwindigkeit, was darauf hindeutet, dass der Treiber keine UART-Kommunikation aufbauen konnte. Dadurch werden `MS1` und `MS2` zum Einstellen der Mikroschritte verwendet, was das langsamere Drehen des Motors erklären würde. Über das Auslesen des seriellen Monitors konnte ebenfalls keine funktionierende UART-Kommunikation validiert werden.
 
 **Testversuch 4 (Auslesen des DIAG-Signals): ❌**
-
-Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Steckplatz `T2` installiert und durch den ESP32 angesprochen. Dabei wurde versucht, das DIAG-Signal beim Blockieren der Motorwelle auszulesen. 
-
-Hierfür wurde der Motor mit einer konstanten Geschwindigkeit gedreht und durch Festhalten der Motorwelle blockiert. Dabei konnte über den seriellen Monitor kein DIAG-Signal durch den Treiber validiert werden, wodurch dieser Test als **nicht bestanden** geschlossen werden konnte.
+>
+>Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Steckplatz `T2` installiert und durch den ESP32 angesprochen. Dabei wurde versucht, das DIAG-Signal beim Blockieren der Motorwelle auszulesen. 
+>
+>Hierfür wurde der Motor mit einer konstanten Geschwindigkeit gedreht und durch Festhalten der Motorwelle blockiert. Dabei konnte über den seriellen Monitor kein DIAG-Signal durch den Treiber validiert werden, wodurch dieser Test als **nicht bestanden** geschlossen werden konnte.
 
 **Testversuch 5 (Ansteuerung des Servomotors): ❌✅**
-
-Für diesen Testversuch wurde der Servomotor mit dem PCB verbunden und über den ESP32 angesprochen. Der Servomotor sollte sich dabei einmal von der linken Endlage zur rechten Endlage drehen.
-
-
-**Hier noch weiter schreiben**
+>
+>Für diesen Testversuch wurde der Servomotor mit dem PCB verbunden und über den ESP32 angesprochen. Der Servomotor sollte sich dabei einmal von der linken Endlage zur rechten Endlage drehen.
+>**Hier noch weiter schreiben**
 
 Durch das Nichtbestehen der Versuche 1, 3 und 4 konnte die korrekte Funktionsweise des Prototyps nicht validiert werden. Das Fehlverhalten gilt es im finalen PCB zu beheben.
 
