@@ -35,10 +35,10 @@
 
 \tikzset{
   bszentrum/.style={ellipse, draw=bshaupt, fill=bshaupt, text=white, very thick,
-    minimum width=4.6cm, minimum height=2.6cm, text width=3.6cm,
-    align=center, font=\bfseries\large},
+    minimum width=5.4cm, minimum height=3cm, text width=4.2cm,
+    align=center, font=\bfseries\Large},
   bsast/.style={rectangle split, rectangle split parts=2, draw=bshaupt, thick,
-    rounded corners=3pt, text width=7.2cm, inner sep=5pt,
+    rounded corners=3pt, text width=6.6cm, inner sep=5pt,
     rectangle split part fill={bshaupt,bshell}, align=left, font=\small},
   bsverbindung/.style={draw=bshaupt, very thick}
 }
@@ -47,42 +47,44 @@
   \node[bsast] (#1) at (#2) {%
     \textcolor{white}{\bfseries #3}
     \nodepart{second}
-    \begin{minipage}{7.0cm}
+    \begin{minipage}{6.4cm}
       \begin{itemize}[leftmargin=1.1em,itemsep=1pt,topsep=1pt,parsep=0pt,label=\textcolor{bshaupt}{$\bullet$}]
         #4
       \end{itemize}
     \end{minipage}};
 }
 
+\vspace*{\fill}  % Grafik vertikal zentrieren
+
 \centering
 \ifcsname singlespacing\endcsname\singlespacing\fi  % Knoten nicht durch 1,5-fachen Zeilenabstand aufblähen
-\adjustbox{max width=\linewidth,max totalheight=0.72\textheight,center}{%
+\adjustbox{max width=\linewidth,max totalheight=0.78\textheight,center}{%
 \begin{tikzpicture}[x=1cm,y=1cm]
 
 \node[bszentrum] (Z) at (0,0) {Brainstorming\\Gehäusekonzept};
 
 % Linke Seite
-\bszweig{A}{-9.6,7.1}{1\; Befestigung der Platine im Gehäuse}{
+\bszweig{A}{-8.6,7.0}{1\; Befestigung der Platine im Gehäuse}{
   \item Gar nicht
   \item Schrauben ins Material
   \item Einschmelzgewinde
   \item Kleben
   \item Verguss (Epoxidharz)}
 
-\bszweig{B}{-9.6,2.4}{2\; Befestigung der Komponenten}{
+\bszweig{B}{-8.6,2.5}{2\; Befestigung der Komponenten}{
   \item Steckverbindungen (Pins)
   \item Löten (SMD / Through-Hole)
   \item Schraubverbindung
   \item Kleben}
 
-\bszweig{C}{-9.6,-2.4}{3\; Energieversorgung / Wandlung (24\,V / 5\,V)}{
+\bszweig{C}{-8.6,-2.5}{3\; Energieversorgung / Wandlung (24\,V / 5\,V)}{
   \item Einzelne Netzteile für 24\,V und 5\,V
   \item Buck-/Boost-Converter (24\,V $\rightarrow$ 5\,V)
   \item Trafo mit Gleichrichter (230\,V-Anschluss)
   \item Zener-Diode / Spannungsteiler für 5\,V
   \item Akku oder Netzversorgung}
 
-\bszweig{D}{-9.6,-7.1}{4\; Befestigung der Motorkabel}{
+\bszweig{D}{-8.6,-7.0}{4\; Befestigung der Motorkabel}{
   \item Steckverbindung
   \item Anlöten
   \item Schraubklemmen
@@ -90,7 +92,7 @@
   \item Keine (fest verdrahtet)}
 
 % Rechte Seite
-\bszweig{E}{9.6,7.1}{5\; Wärmeabfuhr}{
+\bszweig{E}{8.6,7.0}{5\; Wärmeabfuhr}{
   \item Keine
   \item Natürliche Belüftung (Lüftungsschlitze)
   \item Kühlrippen
@@ -98,20 +100,20 @@
   \item Wasserkühlung
   \item Flüssiger Stickstoff (LN$_2$)}
 
-\bszweig{F}{9.6,2.4}{6\; Fertigung des Gehäuses}{
+\bszweig{F}{8.6,2.5}{6\; Fertigung des Gehäuses}{
   \item 3D-Druck
   \item CNC
   \item Manuelles Spanen
   \item Spritzgussverfahren}
 
-\bszweig{G}{9.6,-2.4}{7\; Verbindung Gehäuse und Roboter}{
+\bszweig{G}{8.6,-2.5}{7\; Verbindung Gehäuse und Roboter}{
   \item Steckverbindung / Klemmen
   \item Magnetisch
   \item Schraubverbindung
   \item Kleben
   \item Einteilig}
 
-\bszweig{H}{9.6,-7.1}{8\; Material des Gehäuses}{
+\bszweig{H}{8.6,-7.0}{8\; Material des Gehäuses}{
   \item PLA
   \item PETG
   \item ABS
@@ -119,14 +121,23 @@
   \item Unlegierter Baustahl (S235JR)
   \item Acryl (durchsichtig)}
 
-\foreach \n in {A,B,C,D}{ \draw[bsverbindung] (Z) -- (\n.east); }
-\foreach \n in {E,F,G,H}{ \draw[bsverbindung] (Z) -- (\n.west); }
-\node[bszentrum] at (0,0) {Brainstorming\\Gehäusekonzept};
+% Geschwungene Verbindungen, verteilt über die Ellipse
+\draw[bsverbindung] (Z.150) to[out=180,in=0] (A.east);
+\draw[bsverbindung] (Z.172) to[out=180,in=0] (B.east);
+\draw[bsverbindung] (Z.188) to[out=180,in=0] (C.east);
+\draw[bsverbindung] (Z.210) to[out=180,in=0] (D.east);
+
+\draw[bsverbindung] (Z.30)  to[out=0,in=180] (E.west);
+\draw[bsverbindung] (Z.8)   to[out=0,in=180] (F.west);
+\draw[bsverbindung] (Z.-8)  to[out=0,in=180] (G.west);
+\draw[bsverbindung] (Z.-30) to[out=0,in=180] (H.west);
 
 \end{tikzpicture}}
 
 \captionof{figure}{Brainstorming: Ideensammlung zum Gehäusekonzept}
 \label{fig:brainstorming}
+
+\vspace*{\fill}
 %\end{querseite}
 
 \end{document}
