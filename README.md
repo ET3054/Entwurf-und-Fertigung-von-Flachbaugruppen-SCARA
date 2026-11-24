@@ -6,9 +6,20 @@ Dieses Repository ist Teil des Modules **IE-M13-3054** der Studierenden **Dejan 
 * [Grundlegende Informationen](#grundlegende-informationen)
 * [Repository-Struktur](#repository-struktur)
 * [Idee hinter dem Projekt](#idee-hinter-dem-projekt)
-* [Schaltplanentwicklung](#schaltplanentwicklung)
 * [Prototypenentwicklung](#prototypenentwicklung)
+    * [Schaltplanentwicklung](#schaltplanentwicklung)
+    * [PCB-Layout](#pcb-layout)
+    * [Bestückung und Fertigung](#bestückung-und-fertigung)
+    * [Testversuche](#testversuche)
 * [Finales PCB-Design](#finales-pcb-design)
+    * [Änderungen des Schaltplans](#änderungen-des-schaltplans)
+    * [Änderungen des PCB-Layouts](#änderungen-des-pcb-layouts)
+    * [Bestückung und Fertigung](#bestückung-und-fertigung-1)
+
+
+
+
+
  
 ## Grundlegende Informationen
  
@@ -42,7 +53,7 @@ Dieses GitHub-Repository befasst sich mit der Entwicklung und Fertigung eines PC
 │   ├── Bauanleitung/          # Bauanleitung des SCARA-Roboters DJ01
 │   └── Ablaufdiagramm/        # Ablaufdiagramm des Programmcodes
 ├── Abgabe Konstruktionslehre/ # Ausarbeitung für das Modul Konstruktionslehre
-├── Images/                    # Bilder für die README.md
+├── images/                    # Bilder für die README.md
 └── README.md
 ```
 ## Idee hinter dem Projekt
@@ -62,21 +73,153 @@ Ziel dieses Projektes ist es daher, ein PCB zu entwickeln, welches in der Lage i
 Auf Grundlage der im Abschnitt [`Idee hinter dem Projekt`](#idee-hinter-dem-projekt) beschriebenen Anforderungen wurde ein erster Prototyp des PCBs entwickelt. Zunächst wurde das Design in **Altium Designer** begonnen. Dabei zeigte sich jedoch, dass die Lernkurve sehr steil ist und die Einarbeitung im Rahmen des Projekts zu viel Zeit in Anspruch genommen hätte. Aus diesem Grund fiel die Entscheidung auf **EasyEDA**. **EasyEDA** ermöglicht über die eigene Browseranwendung eine effiziente Zusammenarbeit, was die Zusammenarbeit im Team deutlich vereinfacht hat. Zudem sind alle Komponenten des elektronik Lieferanten **JCSC** nativ in EasyEDA eingebunden, was die Komponentensuche und die endgültige Bestellung deutlich erleichtert. Der erste Prototyp wurde daher in **EasyEDA** entworfen und anschließend über den Hersteller **JLCPCB** gefertigt. Die Entwicklung dieses Prototyps ist in den nachfolgenden Abschnitten beschrieben.
 
 ### Schaltplanentwicklung
+ 
+Die Entwicklung des Schaltplans erfolgte auf Grundlage der im Abschnitt [`Idee hinter dem Projekt`](#idee-hinter-dem-projekt) beschriebenen Anforderungen. Ziel war es, die vier bestehenden TMC2209-Schrittmotortreiber über Steckplätze auf dem PCB zu befestigen. Die Motorkabel der Schrittmotoren und des Servomotors sollten über Steckverbinder auf dem PCB angeschlossen werden. Aufgrund seiner großen Abmessungen sollte der aktuell verwendete ESPDuino32 durch ein kleineres ESP32-DevkitC ersetzt werden. Zudem sollte die Spannungsversorgung des gesamten Roboters über ein 24-V-DC-Netzteil bzw. einen 24-V-DC-Power-Jack erfolgen. Da der Mikrocontroller und der Servomotor eine Versorgungsspannung von 5 V benötigen, müssen die 24 V des Netzteils mittels eines DC/DC-Wandlers auf 5 V transformiert werden. Die 3,3-V-Versorgungsspannung der TMC2209-Treiber wird über den 3,3-V-Pin des ESP32-Devkits bereitgestellt. All diese Überlegungen mussten im Schaltplan des ersten Prototypen umgesetzt werden.
+ 
+Die erste Komponente des Schaltplans ist der 24-V-DC-Power-Jack (`DC1`), welcher die Spannungsversorgung des gesamten Roboters übernimmt. Die 24-V-Ausgangsspannung des Power-Jacks wird mittels eines 100-µF-Elektrolytkondensators (`C5`) gegen GND stabilisiert.
+ 
+<p align="center">
+<img src="images/DC-Power-Jack-Prototype.png" alt="DC-Power-Jack-Prototype" height="400" width="auto">
+</p>
 
-Die Entwicklung des Schaltplans erfolgte auf Grundlage der im Abschnitt [`Idee hinter dem Projekt`](#idee-hinter-dem-projekt) beschriebenen Anforderungen. Ziel war es, die vier bestehenden TMC2209 Schrittmotortreiber über Steckplätze auf dem PCB zu befestigen. Die Motorkabel der Schrittmotoren und des Servomotors sollten über Steckverbinder auf dem PCB angeschlossen werden. Aufgrund seiner großen Abmessungen sollte der aktuell verwendete ESPDuino32 durch ein kleineres ESP32-DevkitC ersetzt werden. Zudem sollte die Spannungsversorgung des Gesamten Roboters über ein 24 V DC-Netzteil bzw. einen 24 V DC-Power-Jack erfolgen. Da der Mikrocontroller und der Servomotor eine Versorgungsspannung von 5 V benötigen, müssen die 24 V des Netzteils mittels eines DC/DC-Wandlers auf 5 V transformiert werden. Die 3,3 V Versorgungsspannung der TMC2209 Treiber wird über den 3,3 V Pin des ESP32-Devkits bereitgestellt.
+Nach dem Kondensator wird die 24-V-Spannung über eine DC-DC-Converter-Schaltung auf 5 V transformiert. Die Schaltung besteht aus dem eigentlichen DC-DC-Wandler (`U7`) sowie zahlreichen Widerständen (`R5-R10`), Kondensatoren (`C7-C9`), einer Diode (`D1`) und einer Spule (`L1`). Die Schaltung wurde anhand des [`Datenblattes des DC-DC-Wandlers`](docs/Datenblaetter/24Vto5V.pdf) gestaltet und nachgebaut.
+ 
+<p align="center">
+<img src="images/DC-Converter-Prototype.png" alt="DC-DC-Converter-Prototype" height="400" width="auto">
+</p>
 
-All diese Überlegungen mussten im Schaltplan des ersten Prototypen umgesetzt werden. Der finale [`Schaltplan des ersten Prototypen`](proj/Schaltplan/Prototyp/) ist 
+Die 5-V-Ausgangsspannung der DC-DC-Converter-Schaltung wird an das ESP32-Devkit sowie den Servomotor weitergegeben. Das ESP32-Devkit wird mittels zweier 15-poliger Steckverbinder (`H21` und `H22`) auf dem PCB befestigt. Die 5-V-Ausgangsspannung des DC-DC-Wandlers ist dabei mit Pin 15 des Headers `H21` verbunden. Über die weiteren Pins der beiden Header werden die verschiedenen Steuersignale der Schrittmotoren und des Servomotors ausgegeben bzw. die Rückmeldesignale eingelesen. Jeder TMC2209-Treiber verfügt über ein eigenes `DIAG_Tx`-Signal, ein `STEP_Tx`-Signal und ein `DIR_Tx`-Signal. Zudem sind alle Treiber an das Signal `EN`, welches für die Aktivierung bzw. Deaktivierung der Treiber verwendet wird, und die UART-Leitungen `TX0` und `RX0` angeschlossen.
+ 
+ 
+<p align="center">
+<img src="images/Steckplatz-ESP32-Prototype.png" alt="Steckplatz des ESP32-Devkits (ESP32 Connector)" height="400" width="auto">
+</p>
+
+Die vier TMC2209-Treiber selbst werden jeweils mittels dreier Steckverbinder auf dem PCB befestigt. Dafür werden pro Treiber ein 2-poliger Steckverbinder (`H2`, `H7`, `H12` und `H17`) sowie zwei 8-polige Steckverbinder (`H1`, `H3`, `H6`, `H8`, `H11`, `H13`, `H16` und `H18`) verwendet. Über die Elektrolytkondensatoren `C1`, `C2`, `C3` und `C4` wird die 24-V-Versorgungsspannung der Schrittmotoren stabilisiert. Die Treiber selbst erhalten ihre 3,3-V-Versorgungsspannung über den 3,3-V-Pin des ESP32-Devkits. Die Motorkabel der Schrittmotoren werden über die 4-poligen Stecker `CN1` bis `CN4` an das PCB angeschlossen. 
+ 
+<p align="center">
+<img src="images/Steckplätze-T1-T4-Prototype.png" alt="Steckplätze der Treiber T1 bis T4" height="auto" width="auto">
+</p>
+
+In der detaillierteren Ansicht des Steckplatzes für den Treiber T1 ist zudem zu erkennen, dass die UART-Leitungen `TX0` und `RX0` des ESP32 nicht direkt an die Treiber angeschlossen werden. `TX0` wird über die 1-kΩ-Widerstände (`R1` bis `R4`) mit der `RX0`-Leitung verbunden. Diese gebündelte Leitung wird anschließend an die Treiber angeschlossen. Über die Header `H4`, `H5`, `H9`, `H10`, `H14`, `H15`, `H19` und `H20` können die UART-Adressen der einzelnen Treiber eingestellt werden. Über Verbindungsbrücken zwischen den einzelnen Pins können die `MS1`-Pins und `MS2`-Pins der Treiber entweder mit GND oder 3,3 V verbunden werden. Die so einstellbaren Adressen sind in der folgenden Tabelle dargestellt. 
+ 
+<p align="center">
+
+| MS2 | MS1 | UART-Adresse des Treibers |
+|:---:|:---:|:---:|
+| `GND` | `GND` | 0x00 |
+| `GND` | `3,3 V` | 0x01 |
+| `3,3 V` | `GND` | 0x02 |
+| `3,3 V` | `3,3 V` | 0x03 |
+ 
+</p>
+
+<p align="center">
+<img src="images/Steckplatz-Treiber1-Prototype.png" alt="Detaillierte Ansicht des Steckplatzes für den Treiber T1" height="400" width="auto">
+</p>
+
+Der letzte Bestandteil des Schaltplans ist der Anschlusspunkt des Servomotors. Die Motorkabel des Servos werden über den Steckverbinder `CN5` mit dem PCB verbunden. Die 5-V-Versorgungsspannung wird erneut über die DC-DC-Converter-Schaltung bereitgestellt. Da der Servomotor über ein PWM-Signal angesteuert wird, ist der dritte Pin des Steckverbinders mit dem `S_PWM` des ESP32 verbunden.
+ 
+<p align="center">
+<img src="images/Anschluss-Servomotor-Prototype.png" alt="Detaillierte Ansicht des Anschlusses für den Servomotor" height="400" width="auto">
+</p>
 
 ### PCB-Layout
+ 
+Um die Produktionskosten des PCBs möglichst gering zu halten und weil die Komplexität des Aufbaus es nicht erfordert, wurde entschieden, ein zweilagiges PCB zu erstellen. Die zwei Lagen sollen dabei hauptsächlich zwei unterschiedliche Aufgaben erfüllen. Die Oberseite des PCBs (`Layer 1`) soll hauptsächlich für die Führung und Übertragung der einzelnen Steuersignale zwischen ESP32 und Motoren zuständig sein. Auf der Rückseite des PCBs (`Layer 2`) werden alle Spannungsleitungen (24 V, 5 V und 3,3 V) geführt. Damit die Bestückung des PCBs einfach gehalten werden kann, sind zudem alle Komponenten auf der Oberseite positioniert.
+ 
+<p align="center">
+<img src="images/PCB-Prototype-Layer1.png" alt="Layer 1 des Prototype PCBs" height="600" width="auto">
+</p>
 
+<p align="center">
+<img src="images/PCB-Prototype-Layer2.png" alt="Layer 2 des Prototype PCBs" height="600" width="auto">
+</p>
+
+Das Layout des PCBs ist in vier große Teile aufgeteilt. Bereich 1 beinhaltet den 24-V-DC-Power-Jack, Bereich 2 sind die Steckplätze der TMC2209-Treiber sowie die Anschlussstecker der Motorkabel, Bereich 3 beinhaltet den Steckplatz des ESP32-Devkits, welcher die zentrale Steuerung des Roboters ist, und Bereich 4 beinhaltet die DC-DC-Converter-Schaltung von 24 V auf 5 V. 
+ 
+<p align="center">
+<img src="images/Bereiche-PCB-Prototyp.png" alt="Bereiche des PCBs" height="600" width="auto">
+</p>
+
+Das 24-V-Netz wird vom DC-Power-Jack, welcher auf der unteren Seite des PCBs positioniert ist, über den Stützkondensator sternförmig zu den Treibern und der Converter-Schaltung geleitet. Da die einzelnen Treiber ebenfalls über Stützkondensatoren verfügen, wird durch die sternförmige Führung des 24-V-Netzes verhindert, dass sich diese Kondensatoren gegenseitig belasten. 
+ 
+Jeder Treibersteckplatz verfügt über die Headerpins für das Einstecken der Treiber, das Festlegen der UART-Adresse und das Anschließen der Motorkabel. Der Kondensator zum Stützen der 24-V-Versorgungsspannung ist jeweils unter den Treibern angebracht. 
+ 
+Der Steckplatz des ESP32-Devkits befindet sich im oberen linken Bereich des PCBs. Von hier aus werden alle Signalleitungen weitestgehend gebündelt zu den Treibern und dem Servomotor geführt. Die `TX0`- und `RX0`-Leitungen werden am Rand des PCBs geführt, von wo sie dann mit den entsprechenden Pins der Treiber verbunden werden.
+ 
+Die DC-DC-Converter-Schaltung ist im oberen rechten Teil des PCBs positioniert. Da lediglich der ESP32 und der Servomotor eine Versorgungsspannung von 5 V benötigen, ist die Converter-Schaltung genau zwischen diesen beiden Bauelementen positioniert. Somit muss das 5-V-Netz nicht über das gesamte PCB geroutet werden.
+ 
+An allen vier Ecken des PCBs sind zudem **Bohrungen** mit einem Durchmesser von 3,2 mm positioniert. Diese ermöglichen es, das PCB im Gehäuse des SCARA-Roboters mittels Schrauben sicher zu befestigen.
+ 
+Für die Überprüfung der Versorgungsspannungen (24 V und 5 V) sowie das Debuggen der UART-Kommunikation wurden auf den entsprechenden Leitungen **Testpads** mit einem Durchmesser von 1 mm positioniert. Die Testpunkte sind entsprechend ihrer Signale auf dem Silkscreen gekennzeichnet. 
+ 
+Die Traces des PCBs haben eine standardmäßige Breite von 3 mm. Aufgrund der höheren Ströme auf den Traces des 24-V- und 5-V-Netzes sind diese Traces mit einer Breite von 4 mm dimensioniert. Für die beiden Netze ergeben sich dabei die folgenden Strombelastbarkeitswerte:
+ 
+<p align="center">
+
+| Net | Net-Länge | Trace-Breite | Widerstand | Strombelastbarkeit | 
+|:---:|:---:|:---:|:---:|:---:|
+| 24 V | 239 mm | 3 mm | 0,2936 Ω | **1,23 A** |
+| 5 V | 49 mm | 3 mm | 0,0602 Ω | **1,23 A** | 
+
+</p>
+
+Da der Nennstrom der beiden Netze nie einen Wert von mehr als 1 A erreicht, sind diese somit ausreichend groß dimensioniert.
+ 
+Um die verschiedenen Traces voneinander zu schirmen und eine bessere EMV zu gewährleisten, wurde sowohl auf der Oberseite (`Layer 1`) als auch auf der Unterseite (`Layer 2`) ein sogenannter GND-Pour hinzugefügt. Dieser füllt alle freien Flächen zwischen Traces und Komponenten mit Kupfer und ist dabei mit dem GND-Netz verbunden. So können die einzelnen Signal- und Spannungsleitungen voneinander geschirmt werden und gleichzeitig ein niederohmiger Rückleitungspfad gewährleistet werden.
 
 ### Bestückung und Fertigung
 
-### Erkenntnisse und Fehlerbehebung
+Da es sich bei EasyEDA um ein Programm des Leiterplattenherstellers **JLCPCB** handelt, wurde das PCB ebenfalls über diesen Hersteller bestellt. Über EasyEDA kann das PCB dabei direkt an den Onlineshop des Herstellers übertragen und anschließend bestellt werden. Alle Komponenten wurden separat beim Lieferanten **LCSC** bestellt. Die BOM, die Gerber-Dateien und alle weiteren Dateien sind im Verzeichnis [proj/Export/Prototyp](proj/Export/Prototyp) zu finden.
+
+Die Bestückung des PCBs mit den Komponenten erfolgte mittels einer **Heißluftlötstation** sowie eines normalen **Lötkolbens**. Für das Löten der SMD-Bauteile wurde Lötpaste mittels einer Spritze auf die Kontakte aufgetragen und anschließend mit der Heißluftlötstation erhitzt. Danach wurden alle Through-Hole-Komponenten mit dem Lötkolben auf dem PCB verlötet.
+
+### Testversuche
+
+Mit der fertiggestellten Prototypen-Leiterplatte wurden mehrere Testversuche durchgeführt, um die korrekte Funktionsweise des PCBs zu validieren.
+
+**Testversuch 1 (Betrieb eines Schrittmotors): ✅**
+
+Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Treibersteckplatz `T1` installiert und über den ESP32 angesprochen. Der Programmcode steuerte den Schrittmotor dabei so an, dass sich dieser mit einer konstanten Geschwindigkeit für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf dreht.
+
+Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
+
+**Testversuch 2 (Betrieb von zwei Schrittmotoren): ✅**
+
+Für diesen Testversuch wurden zwei TMC2209-Treiber auf den Steckplätzen `T1` und `T2` installiert und durch den ESP32 angesprochen. Der Programmcode steuerte dabei beide Motoren gleichzeitig an. Beide Motoren sollten sich mit einer konstanten Geschwindigkeit erneut für 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen.
+
+Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test ebenfalls mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
+
+**Testversuch 3 (Ansteuerung der TMC2209-Treiber über UART): ❌**
+
+Für diesen Testversuch wurden zwei Treiber auf den Steckplätzen `T1` und `T2` installiert. Über die Header für das Setzen von `MS1` und `MS2` wurde die UART-Adresse des ersten Treibers auf 0 (`MS1` und `MS2` auf `GND`) und die Adresse des zweiten Treibers auf 1 (`MS1` auf `3,3 V` und `MS2` auf `GND`) festgelegt. Über den ESP32 wurden die Treiber so angesprochen, dass sich beide Motoren mit der gleichen Geschwindigkeit drehen. Motor 1 soll sich dabei 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen. Motor 2 soll sich wiederum 6 Sekunden im Rechtslauf und anschließend 6 Sekunden im Linkslauf drehen.
+
+Dieses Verhalten konnte nicht validiert werden. Motor 2 drehte sich beim Test mit einer deutlich langsameren Geschwindigkeit, was darauf hindeutet, dass der Treiber keine UART-Kommunikation aufbauen konnte. Dadurch werden `MS1` und `MS2` zum Einstellen der Mikroschritte verwendet, was das langsamere Drehen des Motors erklären würde. Über das Auslesen des seriellen Monitors konnte ebenfalls keine funktionierende UART-Kommunikation validiert werden.
+
+**Testversuch 4 (Auslesen des DIAG-Signals): ❌**
+
+Für diesen Testversuch wurde ein TMC2209-Treiber auf dem Steckplatz `T1` installiert und durch den ESP32 angesprochen. Dabei wurde versucht, das DIAG-Signal beim Blockieren der Motorwelle auszulesen. 
+
+Hierfür wurde der Motor mit einer konstanten Geschwindigkeit gedreht und durch Festhalten der Motorwelle blockiert. Dabei konnte über den seriellen Monitor kein DIAG-Signal durch den Treiber validiert werden, wodurch dieser Test als **nicht bestanden** geschlossen werden konnte.
+
+**Testversuch 5 (Ansteuerung des Servomotors): ❌✅**
+
+Für diesen Testversuch wurde der Servomotor mit dem PCB verbunden und über den ESP32 angesprochen. Der Servomotor sollte sich dabei einmal von der linken Endlage zur rechten Endlage drehen.
+
+
+**Hier noch weiter schreiben**
+
+Durch das Nichtbestehen der Versuche 3 und 4 konnte die korrekte Funktionsweise des Prototyps nicht validiert werden. Das Fehlverhalten gilt es im finalen PCB zu beheben.
+
 
 ## Finales PCB-Design
 
+Ziel des finalen PCB-Designs war es das Fehlverhalten des Prototyps zu beheben, sodass das PCB im SCARA-Roboter DJ01 verwendet werden kann.
+
 ### Änderungen des Schaltplans
+
+
 
 ### Änderungen des PCB-Layouts
 
