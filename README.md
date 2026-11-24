@@ -222,7 +222,7 @@ Ziel des finalen PCB-Designs war es, das Fehlverhalten des Prototyps zu beheben,
 Das Fehlverhalten des PCBs in Testversuch 1 deutet darauf hin, dass die `STEP_T1`- oder `DIR_T1`-Leitung nicht korrekt am Treiber angeschlossen ist oder auf falschen Kanälen des ESP32-Devkits liegt. Da die Treiber auf allen weiteren Steckplätzen angesprochen werden konnten, spricht dies gegen eine falsche Belegung der Treiberpins. Nach erneutem Betrachten des Pinouts des ESP32-Devkits fällt auf, dass die Leitungen `STEP_T1` und `DIR_T1` mit `GPIO39` und `GPIO34` des ESP32-Devkits verbunden sind. Hierbei handelt es sich nach weiterer Recherche um Input-only-Pins.
 
 <p align="center">
-<img src="images/ESP32-Pinout.png" alt="ESP32 Pinout" height="300" width="auto">
+<img src="images/ESP32-Pinout.png" alt="ESP32 Pinout" height="400" width="auto">
 </p>
 
 Da jedoch sowohl `STEP_T1` als auch `DIR_T1` Ausgangssignale des ESP32 sind, können diese demnach nicht an den Treiber auf dem ersten Steckplatz übertragen werden. Das Problem kann also dadurch behoben werden, dass die beiden Signalleitungen an zwei neue Pins angeschlossen werden, welche für Ausgangssignale geeignet sind. Auf dem finalen PCB liegt `STEP_T1` an `GPIO23` und `DIR_T1` an `GPIO22`. Diese Änderung wurde ebenfalls im Schaltplan des finalen PCBs übernommen. 
