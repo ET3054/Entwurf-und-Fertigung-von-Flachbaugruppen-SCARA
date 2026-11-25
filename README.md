@@ -279,3 +279,4 @@ Das finale PCB wurde aus zeitlichen Gründen nicht bestellt und daher auch nicht
 * Pinouts der Komponenten besser betrachten
 * Rotation der Bauelemente besser beachten
 * Nutzbarkeit des PCBs durch Markierungen auf dem Silkscreen maximieren
+* Signale gebündelt führen
