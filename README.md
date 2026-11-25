@@ -253,7 +253,7 @@ Bei näherem Betrachten des Layouts der Treibersteckplätze fällt auf, dass die
 
 Diese fehlende Kontaktierung des `DIAG`-Pins würde erklären, warum keine Signale durch den ESP32 empfangen werden und kein sensorloses Homing möglich ist. 
 
-Auf Grundlage der Anpassungen im Schaltplan sowie der falschen Ausrichtung der Header wurde das PCB-Layout nochmals überarbeitet. Analog zum Prototyp ist das PCB in die vier großen Bereiche aufgeteilt. Die Oberseite `Layer 1` führt erneut die Steuerleitungen und die Unterseite `Layer 2` die Spannungsleitungen. Verändert haben sich lediglich die kontaktierten Pins der Treiber (UART-Pins), die Rotation der Header, die Verschaltung der `RX0`- und `TX0`-Leitungen und die Anschlusspins für `STEP_T1` und `DIR_T1` am ESP32-Devkit. Der neue 1-kΩ-Widerstand für die UART-Leitung ist nun unter dem Steckplatz des ESP32-Devkits positioniert. Da die `TX0`- und `RX0`-Leitungen jedoch nicht mehr über das gesamte PCB laufen, mussten die entsprechenden Testpads ebenfalls neben dem Steckplatz des ESP32 positioniert werden. Da beim Layout des Prototyp-PCBs die Abstände zwischen den einzelnen Headern nicht exakt mit den Abständen der Pin-Reihen der Bauelemente übereingestimmt haben, wurden diese Abstände im finalen Layout ebenfalls überarbeitet. Das [finale PCB-Layout](proj/EASY%20EDA/Finales%20Design/ProPrj_Scara%20Robot%20PCB_2026-11-23.epro2) ist in den nachfolgenden Abbildungen zu erkennen.
+Auf Grundlage der Anpassungen im Schaltplan sowie der falschen Ausrichtung der Header wurde das PCB-Layout nochmals überarbeitet. Analog zum Prototyp ist das PCB in die vier großen Bereiche aufgeteilt. Die Oberseite `Layer 1` führt erneut die Steuerleitungen und die Unterseite `Layer 2` die Spannungsleitungen. Verändert haben sich lediglich die kontaktierten Pins der Treiber (UART-Pins), die Rotation der Header, die Verschaltung der `RX0`- und `TX0`-Leitungen und die Anschlusspins für `STEP_T1` und `DIR_T1` am ESP32-Devkit. Der neue 1-kΩ-Widerstand für die UART-Leitung ist nun unter dem Steckplatz des ESP32-Devkits positioniert. Da die `TX0`- und `RX0`-Leitungen jedoch nicht mehr über das gesamte PCB laufen, mussten die entsprechenden Testpads ebenfalls neben dem Steckplatz des ESP32 positioniert werden. Da beim Layout des Prototyp-PCBs die Abstände zwischen den einzelnen Headern nicht exakt mit den Abständen der Pin-Reihen der Bauelemente übereingestimmt haben, wurden diese Abstände im finalen Layout ebenfalls überarbeitet. Zudem fiel bei der Nutzung des Prototyps auf, dass beim Setzen der Brücken für `MS1` und `MS2` nicht erkennbar war, welche Brücke welchen Pin mit 3,3 V oder GND verbindet. Daher wurden auf dem finalen PCB unter den Headern für das Setzen der Brücken Beschriftungen für die verbundenen Pins auf dem Silkscreen hinzugefügt. Das [finale PCB-Layout](proj/EASY%20EDA/Finales%20Design/ProPrj_Scara%20Robot%20PCB_2026-11-23.epro2) ist in den nachfolgenden Abbildungen zu erkennen.
 
 <p align="center">
 <img src="images/Finales PCB-Layer-1.png" alt="Layer 1 des finalen PCBs" height="600" width="auto">
@@ -270,3 +270,12 @@ Die vollständigen Fertigungsdateien des finalen PCBs sind im Verzeichnis [proj/
 Das finale PCB wurde aus zeitlichen Gründen nicht bestellt und daher auch nicht bestückt. Dies soll jedoch in einem späteren Arbeitsschritt in Kombination mit der Durchführung der gleichen Testversuche wie beim Prototyp erfolgen.
 
 ## Erkenntnisse und Learnings
+
+* Vermeiden von 90°-Winkeln beim Ziehen von Traces
+* Ein Signal-Layer und ein Power-Layer
+* Spannung sternförmig zu den Komponenten führen
+* Schirmen der Traces mittels GND-Pour
+* Komponenten besser ausmessen bzw. Footprints als Referenz einfügen
+* Pinouts der Komponenten besser betrachten
+* Rotation der Bauelemente besser beachten
+* Nutzbarkeit des PCBs durch Markierungen auf dem Silkscreen maximieren
