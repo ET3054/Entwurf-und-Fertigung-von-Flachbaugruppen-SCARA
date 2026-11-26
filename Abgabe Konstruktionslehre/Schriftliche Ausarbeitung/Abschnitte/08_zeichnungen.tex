@@ -1,0 +1,50 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+\begin{document}
+
+\definecolor{hwrhell}{RGB}{248,232,232}
+\definecolor{linie}{RGB}{120,120,120}
+
+Die ausgewählte Lösung (Gesamtlösung 1, Kapitel 7) ist im Folgenden als Zeichnungssatz dokumentiert. Grundlage ist das 3D-Modell Mikrocontrollergehäuse.step. Alle Maße wurden direkt aus der Geometrie des Modells ermittelt. Der Satz besteht aus der Übersichts- bzw. Explosionsansicht des Gehäuses inklusive Stückliste (Tabelle \ref{tab:stueckliste}) und den Einzelteilzeichnungen der beiden Gehäuseteile (Gehäuseoberteil und Gehäuseunterteil).
+
+\begin{table}[htbp]
+\centering
+\caption{Stückliste SCARA-DJ01-Gehäuse}
+\label{tab:stueckliste}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{@{}c c >{\raggedright\arraybackslash}p{4.1cm} >{\raggedright\arraybackslash}p{3.3cm} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{hwrhell}
+\textbf{Pos.} & \textbf{Menge} & \textbf{Benennung} & \textbf{Werkstoff / Art.-Nr.} & \textbf{Abmessung / Bemerkung} \\
+\midrule
+1 & 1 & Leiterplatte, bestückt & FR-4, 1,6\,mm & $90\times83\times1{,}6$ \\
+2 & 6 & Senkkopfschraube M3 & Art.-Nr. 92010A126 & Gesamtlänge 16\,mm; verbindet Gehäuseunter- und Gehäuseoberteil \\
+3 & 10 & Gewindeeinsatz M3 (Einschmelzgewinde) & -- & Außen-Ø 5\,mm, Gesamtlänge 5\,mm; 6$\times$ in Oberschale, 4$\times$ in Unterschale\\
+4 & 6 & Zylinderschraube mit niedrigem Kopf M3 & Art.-Nr. 92855A307 & Gesamtlänge 6\,mm; verbindet PCB und Gehäuseunter \\
+5 & 1 & Gehäuseunterteil & Kunststoff/PLA (FDM) & $100\times253\times42$ \\
+6 & 1 & Gehäuseoberteil & Kunststoff/PLA (FDM) & $100\times249\times67$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+\newgeometry{a2paper, margin=1.5cm}
+\begin{landscape}
+  \centering
+  \includegraphics[width=\linewidth, height=0.9\textheight, keepaspectratio]{Bilder/TZ-S1.png}
+  \captionof{figure}{Technische Zeichnung Blatt 1/3: Übersichts-/Explosionsansicht mit Stückliste}
+
+  \clearpage
+  \centering
+  \includegraphics[width=\linewidth, height=0.9\textheight, keepaspectratio]{Bilder/TZ-S2.png}
+  \captionof{figure}{Technische Zeichnung Blatt 2/3: Gehäuseunterteil}
+
+  \clearpage
+  \centering
+  \includegraphics[width=\linewidth, height=0.9\textheight, keepaspectratio]{Bilder/TZ-S3.png}
+  \captionof{figure}{Technische Zeichnung Blatt 3/3: Gehäuseoberteil}
+\end{landscape}
+\restoregeometry
+
+\end{document}

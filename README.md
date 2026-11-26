@@ -33,27 +33,29 @@ Dieses GitHub-Repository befasst sich mit der Entwicklung und Fertigung eines PC
  
 ```
 ├── sw/
-│   └── Code/              	   # Programmcode des SCARA-Roboters DJ01
+│   └── Code/              	                # Programmcode des SCARA-Roboters DJ01
 ├── proj/
-│   ├── Easy EDA/              # Easy EDA Projekt der PCBs inklusive Schaltplan und PCB Layout
-│       ├── Prototyp/          # Easy EDA Projekt des ersten Prototyps
-│       └── Finales Design/    # Easy EDA Projekt des finales Designs
-│   ├── Schaltplan/            # Schaltpläne der PCBs
-│       ├── Prototyp/          # Schaltplan des ersten Prototyps
-│       └── Finales Design/    # Schaltplan des finales Designs
-│   └── Export/                # Exportierte Dateien (Gerber, BOM, Pick-and-Place, etc.) für die Fertigung des PCBs
-│       ├── Prototyp/          # Exportierte Dateien des ersten Prototyps
-│       └── Finales Design/    # Exportierte Dateien des finales Designs
+│   ├── Easy EDA/                           # Easy EDA Projekt der PCBs inklusive Schaltplan und PCB Layout
+│       ├── Prototyp/                       # Easy EDA Projekt des ersten Prototyps
+│       └── Finales Design/                 # Easy EDA Projekt des finales Designs
+│   ├── Schaltplan/                         # Schaltpläne der PCBs
+│       ├── Prototyp/                       # Schaltplan des ersten Prototyps
+│       └── Finales Design/                 # Schaltplan des finales Designs
+│   └── Export/                             # Exportierte Dateien (Gerber, BOM, Pick-and-Place, etc.) für die Fertigung des PCBs
+│       ├── Prototyp/                       # Exportierte Dateien des ersten Prototyps
+│       └── Finales Design/                 # Exportierte Dateien des finales Designs
 ├── docs/
-│   ├── 3D-Design/             # 3D Dateien und technische Zeichnungen
-│   ├── Datenblätter/          # Datenblätter der Komponenten
-│   ├── Pinouts/               # Pinouts der Komponenten
-│   ├── Lastenheft/            # Lastenheft des SCARA-Roboters DJ01
-│   ├── Bestandsschaltplan/    # Bestandsschaltplan des SCARA-Roboters DJ01
-│   ├── Bauanleitung/          # Bauanleitung des SCARA-Roboters DJ01
-│   └── Ablaufdiagramm/        # Ablaufdiagramm des Programmcodes
-├── Abgabe Konstruktionslehre/ # Ausarbeitung für das Modul Konstruktionslehre
-├── images/                    # Bilder für die README.md
+│   ├── 3D-Design/                          # 3D Datei und technische Zeichnung des Mikrocontrollergehäuses
+│   ├── Datenblätter/                       # Datenblätter der Komponenten
+│   ├── Pinouts/                            # Pinouts der Komponenten
+│   ├── Lastenheft/                         # Lastenheft des SCARA-Roboters DJ01
+│   ├── Bestandsschaltplan/                 # Bestandsschaltplan des SCARA-Roboters DJ01
+│   ├── Bauanleitung/                       # Bauanleitung des SCARA-Roboters DJ01
+│   └── Ablaufdiagramm/                     # Ablaufdiagramm des Programmcodes
+├── Abgabe Konstruktionslehre/ 
+│       ├── Schriftliche Ausarbeitung/      # Schriftliche Ausarbeitung für das Modul Konstruktionslehre
+│       └── 3D-Design/                      # 3D Datei und technische Zeichnung des Mikrocontrollergehäuses
+├── images/                                 # Bilder für die README.md
 └── README.md
 ```
 ## Idee hinter dem Projekt
@@ -195,7 +197,7 @@ Mit der fertiggestellten Prototypen-Leiterplatte wurden mehrere Testversuche dur
 >
 >Für diesen Testversuch wurden zwei Treiber auf den Steckplätzen `T2` und `T3` installiert. Über die Header für das Setzen von `MS1` und `MS2` wurde die UART-Adresse des ersten Treibers auf 0 (`MS1` und `MS2` auf `GND`) und die Adresse des zweiten Treibers auf 1 (`MS1` auf `3,3 V` und `MS2` auf `GND`) festgelegt. Über den ESP32 wurden die Treiber so angesprochen, dass sich beide Motoren mit der gleichen Geschwindigkeit drehen. Motor 1 soll sich dabei 3 Sekunden im Rechtslauf und anschließend 3 Sekunden im Linkslauf drehen. Motor 2 soll sich wiederum 6 Sekunden im Rechtslauf und anschließend 6 Sekunden im Linkslauf drehen.
 >
->Dieses Verhalten konnte nicht validiert werden. Motor 2 drehte sich beim Test mit einer deutlich langsameren Geschwindigkeit, was darauf hindeutet, dass der Treiber keine UART-Kommunikation aufbauen konnte. Dadurch werden `MS1` und `MS2` zum Einstellen der Mikroschritte verwendet, was das langsamere Drehen des Motors erklären würde. Über das Auslesen des seriellen Monitors konnte ebenfalls keine funktionierende UART-Kommunikation validiert werden.
+>Dieses Verhalten konnte nicht validiert werden. Motor 2 drehte sich beim Test mit einer deutlich langsameren Geschwindigkeit, was darauf hindeutet, dass der Treiber keine UART-Kommunikation aufbauen konnte. Dadurch werden `MS1` und `MS2` zum Einstellen der Mikroschritte verwendet, was das langsamere Drehen des Motors erklären würde. Über das Auslesen des seriellen Monitors konnte ebenfalls **keine funktionierende UART-Kommunikation** validiert werden.
 
 **Testversuch 4 (Auslesen des DIAG-Signals): ❌**
 >
@@ -203,10 +205,10 @@ Mit der fertiggestellten Prototypen-Leiterplatte wurden mehrere Testversuche dur
 >
 >Hierfür wurde der Motor mit einer konstanten Geschwindigkeit gedreht und durch Festhalten der Motorwelle blockiert. Dabei konnte über den seriellen Monitor kein DIAG-Signal durch den Treiber validiert werden, wodurch dieser Test als **nicht bestanden** geschlossen werden konnte.
 
-**Testversuch 5 (Ansteuerung des Servomotors): ❌✅**
+**Testversuch 5 (Ansteuerung des Servomotors): ✅**
 >
 >Für diesen Testversuch wurde der Servomotor mit dem PCB verbunden und über den ESP32 angesprochen. Der Servomotor sollte sich dabei einmal von der linken Endlage zur rechten Endlage drehen.
->**Hier noch weiter schreiben**
+>Dieses Verhalten konnte erfolgreich validiert werden, sodass dieser Test ebenfalls mit dem Status **erfolgreich bestanden** geschlossen werden konnte.
 
 Durch das Nichtbestehen der Versuche 1, 3 und 4 konnte die korrekte Funktionsweise des Prototyps nicht validiert werden. Das Fehlverhalten gilt es im finalen PCB zu beheben.
 
