@@ -2,7 +2,7 @@
 \graphicspath{{\subfix{../images/}}}
 \begin{document}
 
-Aufgrund der Materialwahl der Lösung 3 (Aluminium) wäre die Signaldurchlässigkeit des Gehäuses nach Festforderung 5 nicht gegeben. Daher kann diese Lösung direkt verworfen werden.
+Die drei Gesamtlösungen aus dem morphologischen Kasten werden zunächst auf die Festforderungen geprüft. Wie bereits oben erwähnt schirmt Gesamtlösung 3 (Aluminium) das Bluetooth-Signal des ESP32 ab und verletzt damit Festforderung 5 (Funkdurchlässigkeit). Sie scheidet ohne weitere Bewertung aus. Die Gesamtlösungen 1 und 2 werden in einer Nutzwertanalyse (Tabelle \ref{tab:nwa}) mit einer Ideallösung verglichen. Dazu werden die Wunschforderungen mit den Gewichtungen aus Kapitel \ref{Rangfolgeverfahren} bewertet. Vergeben werden Punkte von 1 bis 10, die mit der jeweiligen Gewichtung multipliziert und aufsummiert werden. Die Ideallösung erreicht in jedem Kriterium 10 Punkte und damit einen gewichteten Gesamtwert von 10.
 
 % ---------- Farben ----------
 \definecolor{kopf}{RGB}{214,224,238}
@@ -28,7 +28,7 @@ Aufgrund der Materialwahl der Lösung 3 (Aluminium) wäre die Signaldurchlässig
 % ---------- Gedrehte Tabelle, mittig auf der Seite ----------
 \begin{center}
 \begin{turn}{90}
-\begin{minipage}{0.80\textheight}
+\begin{minipage}{0.65\textheight}
 \centering
 \captionof{table}{Quantitative Nutzwertanalyse der Gesamtlösungen 1 und 2 im Vergleich zur Ideallösung}
 \label{tab:nwa}
@@ -74,5 +74,9 @@ Aufgrund der Materialwahl der Lösung 3 (Aluminium) wäre die Signaldurchlässig
 \end{minipage}
 \end{turn}
 \end{center}
+
+Gesamtlösung 1 erreicht einen gewichteten Nutzwert von 8,29 und Gesamtlösung 2 von 7,48. Bezogen auf die Ideallösung entspricht das 0,829 bzw. 0,748. Auch ohne Gewichtung liegt Gesamtlösung 1 mit 72 von 90 Punkten (0,80) vor Gesamtlösung 2 mit 65 Punkten (0,72). Der Vorsprung entsteht vor allem beim Bauraum (10 gegenüber 7 Punkten), bei den Herstellungskosten (8 gegenüber 6) und beim Gesamtgewicht (8 gegenüber 6). Gesamtlösung 2 schneidet nur bei der Lebensdauer besser ab (8 gegenüber 7 Punkten). Dieser Vorteil fällt bei einer Gewichtung von 0,15 nicht ins Gewicht. Bei den übrigen Kriterien sind beide Lösungen gleichwertig bewertet.
+
+Gesamtlösung 1 wird daher als Vorzugsvariante ausgewählt und in Kapitel \ref{Zeichnungssatz} als Zeichnungssatz ausgearbeitet.
 
 \end{document}

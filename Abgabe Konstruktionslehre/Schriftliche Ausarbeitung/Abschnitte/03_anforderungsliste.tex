@@ -2,6 +2,8 @@
 \graphicspath{{\subfix{../images/}}}
 \begin{document}
 
+Die Funktionsstruktur in Abbildung \ref{fig:funktionsstruktur} beschreibt das Gesamtsystem als Black Box. Eingangsgrößen sind die Versorgungsspannung (24~V), die Steuersignale sowie die vorgegebenen Winkel, Koordinaten, Geschwindigkeiten und Beschleunigungen. Ausgangsgröße ist die Rotation der Motoren. Die Gesamtfunktion wird in sechs Hauptfunktionen gegliedert: Energieversorgung, Einlesen serieller Befehle, kinematische Berechnungen, Ansteuerung der Schritt- und Servomotoren, Referenzieren sowie Tragen und Schützen der Platine. Jede Hauptfunktion ist in Nebenfunktionen unterteilt. Für die Gehäuseauslegung ist vor allem Hauptfunktion 6 relevant. Sie umfasst das Befestigen der Platine und der Komponenten (6.1, 6.2), die Wärmeabfuhr (6.3) und die Zugänglichkeit der Kabelanschlüsse (6.4). Diese Nebenfunktionen bilden die Grundlage für die Ideensammlung im Kapitel \ref{Brainstorming}.
+
 \usetikzlibrary{arrows.meta,calc,positioning}
 
 % Gleiche Farben wie in der Mindmap
@@ -119,7 +121,7 @@
                 Schrittmotoren\par\vspace{3.5mm}
                 \textbf{Nebenfunktion 4.2:}\\
                 Ausgabe PWM-Signal\\
-                Servo Motor\par\vspace{3.5mm}
+                Servomotor\par\vspace{3.5mm}
                 \textbf{Nebenfunktion 4.3:}\\
                 Konfiguration von\\
                 Geschwindigkeit und\\
