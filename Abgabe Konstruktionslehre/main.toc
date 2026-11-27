@@ -1,0 +1,9 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}%
+\contentsline {section}{\numberline {2}Anforderungen}{3}{section.2}%
+\contentsline {section}{\numberline {3}Funktionsstruktur (Black Box)}{4}{section.3}%
+\contentsline {section}{\numberline {4}Matrix zum Rangfolgeverfahren}{5}{section.4}%
+\contentsline {section}{\numberline {5}Mindmap}{6}{section.5}%
+\contentsline {section}{\numberline {6}Morphologischer Kasten}{7}{section.6}%
+\contentsline {section}{\numberline {7}Bewertung der Lösungsvariante}{8}{section.7}%
+\contentsline {section}{\numberline {8}Zeichnungssatz}{9}{section.8}%
