@@ -87,5 +87,17 @@ Recyclingfähigkeit
 \endgroup
 
 \bigskip\par
-\textbf{TEST}
+Die Gewichtung der Wunschforderungen erfolgt mit dem Rangfolgeverfahren
+(paarweiser Vergleich: wichtiger~=~2, gleich wichtig~=~1, weniger wichtig~=~0).
+Die Gewichtung $g_i$ eines Kriteriums ergibt sich aus der Zeilensumme $S_i$
+und der Gesamtsumme $\sum S_i = 2\binom{9}{2} = 72$:
+\begin{equation}
+  g_i = \frac{S_i}{72}
+\end{equation}
+Die Herstellungskosten ($g = 0{,}20$) und das DIY-Fertigungsverfahren
+($g = 0{,}18$) werden am höchsten gewichtet, da das Gehäuse im Makerspace
+kostengünstig gefertigt werden muss. Es folgen Lebensdauer ($0{,}15$) und
+Bauraum ($0{,}14$). Gesamtgewicht ($0{,}04$) und Recyclingfähigkeit
+($0{,}03$) haben den geringsten Einfluss. Die Gewichtungen sind auf zwei
+Nachkommastellen gerundet (Summe $1{,}00$)q.
 \end{document}
